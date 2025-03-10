@@ -12,24 +12,25 @@ router.post('/register', async (req, res) => {
     }
 
     try {
-        const userRef = db.collection('users');  // ✅ Correct
+        const userRef = db.collection('users'); // ✅ Correct
         const userDoc = await db.collection('users').doc(phone).get(); // ✅ Correct
-        
 
-        if (existingUser.exists) {
+        // Check if the user already exists
+        if (userDoc.exists) { // Corrected line
             return res.status(400).json({ message: 'User already exists' });
         }
 
         // ✅ Hash password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Save the new user data to Firestore
         await userRef.doc(phone).set({
             role,
             phone,
             first_name,
             last_name,
             email,
-            password: hashedPassword,  // Store hashed password
+            password: hashedPassword, // Store hashed password
         });
 
         res.status(201).json({ message: 'User registered successfully' });
@@ -38,6 +39,7 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 
 router.post('/login', async (req, res) => {
