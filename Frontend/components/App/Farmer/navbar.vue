@@ -1,50 +1,49 @@
 <template>
-  <nav class="bg-white p-3 fixed top-0 left-0 w-full z-10 shadow-md sm:top-0 sm:bottom-auto sm:flex sm:justify-between sm:space-x-6 sm:px-4 sm:py-2 sm:max-w-md sm:mx-auto sm:space-x-6 sm:items-center">
-    <div class="flex justify-around w-full sm:w-auto sm:max-w-md sm:mx-auto space-x-6">
-      <!-- Home -->
-      <UButton variant="ghost" size="sm" to="/Farmer/dashboard" aria-label="Home"
-        class="hover:text-green-600 flex flex-col items-center w-20">
-        <UIcon name="i-heroicons-home-solid" size="24" class="mb-1" />
-        <span class="text-sm sm:flex hidden">Home</span>
-      </UButton>
+  <nav class="bg-white p-3 fixed w-full z-10 md:top-0 md:bottom-auto bottom-0">
+    <div class="flex justify-between w-full px-4 py-2 bg-white">
+      <div class="flex justify-around w-full max-w-md mx-auto space-x-4 md:space-x-6">
+        <UButton variant="ghost" size="sm" to="/Farmer/dashboard" aria-label="Home"
+          class="hover:text-green-600 flex flex-col items-center w-20">
+          <UIcon name="i-heroicons-home-solid" class="text-xl md:text-2xl mb-1" />
+          <span class="text-xs md:text-sm">Home</span>
+        </UButton>
 
-      <!-- Community -->
-      <UButton variant="ghost" size="sm" to="/Farmer/community" aria-label="Community"
-        class="hover:text-green-600 flex flex-col items-center w-20">
-        <UIcon name="i-heroicons-users-solid" size="24" class="mb-1" />
-        <span class="text-sm sm:flex hidden">Community</span>
-      </UButton>
+        <UButton variant="ghost" size="sm" to="/Farmer/community" aria-label="Community"
+          class="hover:text-green-600 flex flex-col items-center w-20">
+          <UIcon name="i-heroicons-users-solid" class="text-xl md:text-2xl mb-1" />
+          <span class="text-xs md:text-sm">Community</span>
+        </UButton>
 
-      <!-- Profile -->
-      <UButton variant="ghost" size="sm" to="/Farmer/profile" aria-label="Profile"
-        class="hover:text-green-600 flex flex-col items-center w-20">
-        <UIcon name="i-heroicons-user-solid" size="24" class="mb-1" />
-        <span class="text-sm sm:flex hidden">Profile</span>
-      </UButton>
+        <UButton variant="ghost" size="sm" to="/Farmer/profile" aria-label="Profile"
+          class="hover:text-green-600 flex flex-col items-center w-20">
+          <UIcon name="i-heroicons-user-solid" class="text-xl md:text-2xl mb-1" />
+          <span class="text-xs md:text-sm">Profile</span>
+        </UButton>
 
-      <!-- Notifications -->
-      <UButton variant="ghost" size="sm" to="/Farmer/notifications" aria-label="Notifications"
-        class="hover:text-green-600 flex flex-col items-center w-20 relative">
-        <UChip :text="count" size="sm" class="absolute -top-1 -right-1 bg-red-600 text-white" />
-        <UIcon name="i-heroicons-bell-solid" size="24" class="mb-1 text-green-600" />
-        <span class="text-sm sm:flex hidden">Notifications</span>
-      </UButton>
+        <UButton variant="ghost" size="sm" to="/Farmer/notifications" aria-label="Notifications"
+          class="hover:text-green-600 flex flex-col items-center w-20 relative">
+          <UChip :text="count" size="sm" class="absolute -top-1 -right-1 bg-red-600 text-white" />
+          <UIcon name="i-heroicons-bell-solid" class="text-xl md:text-2xl mb-1 text-green-600" />
+          <span class="text-xs md:text-sm">Notifications</span>
+        </UButton>
+      </div>
     </div>
   </nav>
 </template>
 
 <script setup>
+// Your script setup code here
 </script>
 
 <style scoped>
 nav {
   font-family: "Poppins", sans-serif;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 640px) {
+
+@media (min-width: 768px) {
   nav {
-    bottom: 0;
-    top: auto;
-    position: fixed;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 }
 </style>
