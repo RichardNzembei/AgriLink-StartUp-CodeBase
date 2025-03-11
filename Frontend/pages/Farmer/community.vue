@@ -1,206 +1,147 @@
 <template>
     <AppFarmerNavbar />
-    <div class="community-page px-4 py-6 mt-20 w-full flex">
+    <div class="community-page px-4 py-6 mt-20 w-full flex flex-col md:flex-row">
+        
+        <!-- Sidebar for Active Farmers (Hidden on Small Screens) -->
+        <div class="w-full md:w-1/4 pr-4 border-r border-gray-200 relative md:block" :class="{ 'hidden': !showFarmers, 'block': showFarmers }">
+            <h4 class="font-semibold mb-2 flex items-center justify-between">
+                Active Farmers
+                <button @click="toggleFarmers" class="md:hidden text-green-500">
+                    <UIcon :name="showFarmers ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'" size="20" />
+                </button>
+            </h4>
 
-        <div class="w-1/4 pr-4 border-r border-gray-200">
-            <div class="recent-posts mb-8">
-                <h4 class="font-semibold mb-2">Recent Posts</h4>
-                <div v-for="post in posts" :key="post.id" class="post-item flex items-center mb-4">
-                    <UIcon name="i-heroicons-document-text-solid" size="20" class="mr-2 text-gray-600" />
-                    <div class="post-summary">
-                        <h5 class="text-sm font-medium">{{ post.author }}</h5>
-                        <p class="text-gray-600 text-xs">{{ post.content.substring(0, 40) }}...</p>
+            <transition name="fade">
+                <div v-if="activeFarmers.length">
+                    <div v-for="farmer in activeFarmers" :key="farmer.id" class="flex items-center mb-4">
+                        <UIcon name="i-heroicons-user-circle-solid" size="20" class="mr-2 text-green-600" />
+                        <p class="text-sm text-gray-600">{{ farmer.first_name }} {{ farmer.last_name }} ({{ farmer.phone }})</p>
                     </div>
                 </div>
-            </div>
+                <p v-else class="text-gray-500">No active farmers found.</p>
+            </transition>
 
-            <div class="mentions mb-8">
-                <h4 class="font-semibold mb-2">Mentions</h4>
-                <div v-for="post in posts" :key="post.id" class="mention-item flex items-center mb-4">
-                    <UIcon name="i-heroicons-at-symbol-solid" size="20" class="mr-2 text-blue-600" />
-                    <p class="text-sm text-blue-600">You were mentioned in: {{ post.content }}</p>
-                </div>
-            </div>
-
-            <div class="notifications mb-8">
-                <h4 class="font-semibold mb-2">Notifications</h4>
-                <div v-for="post in posts" :key="post.id" class="notification-item flex items-center mb-4">
-                    <UIcon name="i-heroicons-bell-solid" size="20" class="mr-2 text-yellow-500" />
-                    <p class="text-sm text-yellow-500">New comment on your post: "{{ post.content }}"</p>
-                </div>
-            </div>
-
-            <div class="active-farmers mb-8">
-                <h4 class="font-semibold mb-2">Active Farmers</h4>
-                <div class="active-farmer-item flex items-center mb-4" v-for="farmer in activeFarmers" :key="farmer.id">
-                    <UIcon name="i-heroicons-user-circle-solid" size="20" class="mr-2 text-green-600" />
-                    <p class="text-sm text-gray-600">{{ farmer.name }} ({{ farmer.state }})</p>
-                </div>
-            </div>
+           
         </div>
 
-
-        <div class="w-3/4 pl-4">
-
-            <UCard class="new-post mb-6 shadow-md">
-                <UInput type="textarea" v-model="newPost" placeholder="Share a thought or ask a question..." rows="3"
-                    class="resize-none" />
-                <UButton block class="mt-3 text-green-400" variant="primary" @click="submitPost"
-                    :disabled="!newPost.trim()">
-                    <UIcon name="i-heroicons-paper-clip-solid" size="20" class="mr-2" />
+        <!-- Main Content Area -->
+        <div class="w-full md:w-3/4 pl-4">
+            <!-- New Post Input -->
+            <UCard class="new-post mb-6 shadow-lg bg-white p-4 rounded-lg">
+                <UInput type="textarea" v-model="newPost" placeholder="Share your thoughts..." rows="3" class="resize-none rounded-lg border-gray-300 focus:border-green-500" />
+                <UButton block class="mt-3 text-white bg-green-500 hover:bg-green-600 transition-all" @click="submitPost" :disabled="!newPost.trim()">
                     Post
                 </UButton>
             </UCard>
 
-            <!-- Posts Section -->
+            <!-- Posts Feed -->
             <div v-for="post in posts" :key="post.id" class="post mb-4">
-                <UCard class="shadow-md">
-                    <!-- Post Content -->
+                <UCard class="shadow-lg bg-white p-4 rounded-lg">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="font-medium">{{ post.author }}</h4>
-                            <p class="text-gray-600 dark:text-gray-300">{{ post.content }}</p>
+                            <h4 class="font-medium text-green-700">{{ post.author }}</h4>
+                            <p class="text-gray-600">{{ post.content }}</p>
                         </div>
-                        <small class="text-gray-500 dark:text-gray-400">{{ post.timestamp }}</small>
+                        <small class="text-gray-500">{{ formatTimestamp(post.timestamp) }}</small>
                     </div>
 
+                   <!-- Comments Section -->
+<div class="comments mt-4">
+    <h5 class="font-medium text-sm mb-2">Comments:</h5>
 
-                    <div class="comments mt-4">
-                        <h5 class="font-medium text-sm mb-2">Comments:</h5>
-                        <div>
+    <div v-if="post.comments?.length" class="space-y-2">
+        <div v-for="comment in post.comments" :key="comment.id" class="bg-gray-100 p-2 rounded-lg">
+            <strong class="text-green-700">{{ comment.author }}:</strong> {{ comment.content }}
+        </div>
+    </div>
+    <p v-else class="text-gray-400">No comments yet.</p>
 
-                            <HomeCommentItem v-for="comment in post.comments" :key="comment.id" :comment="comment"
-                                :postId="post.id" @add-reply="handleAddReply" />
-                        </div>
+    <!-- Add Comment -->
+    <UInput 
+        type="textarea" 
+        v-model="newComments[post.id]" 
+        placeholder="Write a comment..." 
+        rows="2" 
+        class="resize-none border-gray-300 focus:border-green-500 rounded-lg" 
+    />
+    <UButton 
+        block 
+        class="mt-2 text-white bg-green-500 hover:bg-green-600 transition-all" 
+        @click="addComment(post.id)" 
+        :disabled="!newComments[post.id]?.trim()"
+    >
+        Comment
+    </UButton>
+</div>
 
-
-                        <div class="add-comment mt-2">
-                            <UInput type="textarea" v-model="newComments[post.id]" placeholder="Write a comment..."
-                                rows="2" class="resize-none" />
-                            <UButton block class="mt-2 text-green-400" variant="success" @click="addComment(post.id)"
-                                :disabled="!newComments[post.id]?.trim()">
-                                <UIcon name="i-heroicons-chat-bubble-left-right-solid" size="20" class="mr-2" />
-                                Comment
-                            </UButton>
-                        </div>
-                    </div>
                 </UCard>
             </div>
         </div>
     </div>
+
+    <!-- Floating Button for Small Screens -->
+    <button class="md:hidden fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all" @click="toggleFarmers">
+        <UIcon name="i-heroicons-users" size="24" />
+    </button>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useUserStore } from "~/store/userStore";
+import { usePostStore } from "~/store/postStore";
 
+const userStore = useUserStore();
+const postStore = usePostStore();
+const newPost = ref("");
+const newComments = ref({});
+const showFarmers = ref(false); // Toggle for active farmers section on mobile
 
-useHead({
-    title: 'Connect-community',
-    meta: [
-        { name: 'description', content: 'connect with farmers across the continent.' },
-        { property: 'og:title', content: 'Connect-community' },
-        { property: 'og:description', content: 'Share insights and build an Agriculture culture.' },
-    ],
+onMounted(async () => {
+    await userStore.fetchUsers();
+    await postStore.fetchPosts();
 });
 
+const activeFarmers = computed(() => userStore.users.filter(user => user.role === "farmer"));
+const posts = computed(() => postStore.posts);
 
-const activeFarmers = ref([
-    { id: 1, name: "Wycliffe", state: "online" },
-    { id: 2, name: "Nzembei", state: "offline" },
-    { id: 3, name: "Mwendwa", state: "online" },
-    { id: 3, name: "Maweu", state: "online" },
-    { id: 3, name: "Katheu", state: "offline" },
-    { id: 3, name: "Russia", state: "offline" },
-    { id: 3, name: "Maxwell", state: "online" },
-]);
-
-
-const posts = ref([
-    {
-        id: 1,
-        author: "Mwendwa Reuben",
-        content: "What is the best way to increase crop yield?",
-        timestamp: "2 hours ago",
-        comments: [
-            {
-                id: 1,
-                author: "Wycliffe Wambua",
-                content: "I recommend organic farming.",
-                replies: [],
-            },
-            {
-                id: 2,
-                author: "Katheu Musembi",
-                content: "I recommend monituring your Watering patterns.",
-                replies: [],
-            },
-        ],
-    },
-    {
-        id: 2,
-        author: "Reuben Nzembei",
-        content: "Does anyone know how to deal with pests naturally?",
-        timestamp: "1 hour ago",
-        comments: [],
-    },
-]);
-
-
-const newPost = ref("");
-
-
-const newComments = ref({});
-
-
-function submitPost() {
+const submitPost = async () => {
     if (!newPost.value.trim()) return;
-
-    posts.value.unshift({
-        id: Date.now(),
-        author: "You",
-        content: newPost.value.trim(),
-        timestamp: "Just now",
-        comments: [],
-    });
-
+    await postStore.addPost(newPost.value.trim());
     newPost.value = "";
-}
+};
 
-function addComment(postId) {
+const addComment = async (postId) => {
     const commentContent = newComments.value[postId]?.trim();
     if (!commentContent) return;
-
-    const post = posts.value.find((p) => p.id === postId);
-    if (post) {
-        post.comments.push({
-            id: Date.now(),
-            author: "You",
-            content: commentContent,
-            replies: [],
-        });
-    }
-
+    await postStore.addComment(postId, commentContent);
     newComments.value[postId] = "";
-}
+};
 
+const formatTimestamp = (timestamp) => new Date(timestamp).toLocaleString();
 
-function handleAddReply({ postId, commentId, reply }) {
-    const post = posts.value.find((p) => p.id === postId);
-    if (!post) return;
-
-    const findComment = (comments) =>
-        comments.find((c) => c.id === commentId) ||
-        comments.reduce((result, c) => result || findComment(c.replies), null);
-
-    const comment = findComment(post.comments);
-    if (comment) {
-        comment.replies.push(reply);
-    }
-}
+const toggleFarmers = () => {
+    showFarmers.value = !showFarmers.value;
+};
 </script>
 
 <style scoped>
-.community-page {
-    display: flex;
+/* Fade animation for Active Farmers */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s ease-in-out;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+/* Mobile UI Enhancements */
+@media (max-width: 768px) {
+    .community-page {
+        flex-direction: column;
+    }
+
+    /* Hide Active Farmers initially */
+    .hidden {
+        display: none;
+    }
 }
 </style>

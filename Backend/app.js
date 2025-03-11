@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users');
 const productRoutes=require('./routes/products');
+const postsRoutes=require('./routes/posts');
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 // Use routes
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
+app.use('/api', postsRoutes);
 
 
 app.listen(PORT, () => {

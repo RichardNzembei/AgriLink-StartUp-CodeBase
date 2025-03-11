@@ -63,7 +63,7 @@ const loginUser = async () => {
   try {
     const success = await userStore.login(formData.value.phone, formData.value.password);
     if (success) {
-      const role = userStore.getUserRole();
+      const role = userStore.getUserRole;
       router.push(`/${role}/dashboard`);
     } else {
       alert("Invalid credentials. Please try again.");

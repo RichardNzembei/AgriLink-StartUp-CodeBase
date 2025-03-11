@@ -1,24 +1,29 @@
 <template>
     <div class="p-6 max-w-xl mx-auto">
         <div class="bg-white shadow-xl rounded-lg overflow-hidden p-6 space-x-4 transition-all duration-500 transform hover:scale-105">
-            <div class="flex items-center space-x-6 mt-6">
-                <img v-if="farmer.profileImage" 
-                    :src="farmer.profileImage" 
-                    alt="Farmer Profile"
-                    class="w-24 h-24 rounded-full object-cover shadow-md border-4 border-green-400 transform transition duration-500 hover:scale-110 hover:rotate-3" />
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-900 transition-opacity duration-700 opacity-80 hover:opacity-100">
-                        {{ farmer.fullName }}
-                    </h2>
-                    <p class="text-sm text-gray-500 font-medium transition-opacity duration-500 hover:opacity-100">
-                        {{ farmer.farmerType }}
-                    </p>
-                    <div class="mt-2 flex items-center text-sm text-gray-500">
-                        <span class="font-semibold text-green-600">
-                            {{ farmer.followers }} Followers
-                        </span>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-6 mt-6">
+                    <img v-if="farmer.profileImage" 
+                        :src="farmer.profileImage" 
+                        alt="Farmer Profile"
+                        class="w-24 h-24 rounded-full object-cover shadow-md border-4 border-green-400 transform transition duration-500 hover:scale-110 hover:rotate-3" />
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 transition-opacity duration-700 opacity-80 hover:opacity-100">
+                            {{ farmer.fullName }}
+                        </h2>
+                        <p class="text-sm text-gray-500 font-medium transition-opacity duration-500 hover:opacity-100">
+                            {{ farmer.farmerType }}
+                        </p>
+                        <div class="mt-2 flex items-center text-sm text-gray-500">
+                            <span class="font-semibold text-green-600">
+                                {{ farmer.followers }} Followers
+                            </span>
+                        </div>
                     </div>
                 </div>
+                <UButton class="text-red-500 hover:text-red-700" variant="outline" @click="logout">
+                    Logout
+                </UButton>
             </div>
 
             <div class="mt-6">
@@ -29,7 +34,7 @@
                 </div>
                 <ul class="mt-4 space-y-3">
                     <li class="flex items-center space-x-2 text-gray-700 transition-transform duration-500 hover:translate-x-2">
-                        <UIcon name="heroicons:link" size="24" class="text-green-500" />
+                        <UIcon name="heroicons:map" size="24" class="text-green-500" />
                         <span>{{ farmer.location }}</span>
                     </li>
                     <li class="flex items-center space-x-2 text-gray-700 transition-transform duration-500 hover:translate-x-2">
@@ -49,8 +54,10 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import { useUserStore } from "~/store/userStore";
+import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
+const router = useRouter();
 
 // ✅ Compute farmer data dynamically
 const farmer = computed(() => ({
@@ -74,6 +81,13 @@ onMounted(() => {
     }
   }
 });
+
+// ✅ Logout function
+const logout = () => {
+  localStorage.removeItem("user");
+  userStore.user = null;
+  router.push("/login");
+};
 </script>
 
 <style>

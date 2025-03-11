@@ -22,14 +22,6 @@
           <UIcon name="i-heroicons-user-solid" class="text-lg sm:text-2xl mb-1" />
           <span class="hidden sm:block text-xs sm:text-sm">Profile</span>
         </UButton>
-
-        <!-- Notifications -->
-        <UButton variant="ghost" size="sm" to="/Farmer/notifications" aria-label="Notifications"
-          class="hover:text-green-600 flex flex-col items-center w-14 sm:w-20 relative">
-          <UChip :text="count" size="sm" class="absolute -top-1 -right-1 bg-red-600 text-white" />
-          <UIcon name="i-heroicons-bell-solid" class="text-lg sm:text-2xl mb-1 text-green-600" />
-          <span class="hidden sm:block text-xs sm:text-sm">Notifications</span>
-        </UButton>
       </div>
     </div>
   </nav>
