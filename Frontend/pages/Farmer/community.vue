@@ -40,7 +40,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <h4 class="font-medium text-green-700">{{ post.author }}</h4>
-                            <p class="text-gray-600">{{ post.content }}</p>
+                            <p class="text-black">{{ post.content }}</p>
                         </div>
                         <small class="text-gray-500">{{ formatTimestamp(post.timestamp) }}</small>
                     </div>
@@ -51,7 +51,7 @@
 
     <div v-if="post.comments?.length" class="space-y-2">
         <div v-for="comment in post.comments" :key="comment.id" class="bg-gray-100 p-2 rounded-lg">
-            <strong class="text-green-700">{{ comment.author }}:</strong> {{ comment.content }}
+            <strong class="text-green-700">{{ comment.author }}:</strong> <span class="text-grey-900">{{ comment.content }}</span>
         </div>
     </div>
     <p v-else class="text-gray-400">No comments yet.</p>
