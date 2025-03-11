@@ -5,11 +5,11 @@
         <ULink to="/Farmer/products" class="text-green-500 text-sm">See All</ULink>
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <UCard v-for="(product, index) in productStore.products" :style="{backgroundColor: 'white'}" :key="index" class="text-center">
+        <UCard v-for="(product, index) in productStore.products" :style="{backgroundColor: 'white', color:'black'}" :key="index" class="text-center">
           <img :src="product.imageUrl" alt="Product Image" class="w-full h-40 object-cover rounded-t-lg" />
           <div class="p-2">
             <h3 class="text-sm font-semibold">{{ product.name }}</h3>
-            <p class="text-sm text-gray-500">{{ product.price }}</p>
+            <p class="text-sm text-gray-500">{{ product.price }} KSH</p>
           </div>
         </UCard>
       </div>

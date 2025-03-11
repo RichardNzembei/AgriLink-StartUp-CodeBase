@@ -21,27 +21,30 @@
           @submit.prevent="submitProduct" 
           class="mt-4 p-4 border rounded-lg shadow-lg bg-white flex flex-col space-y-3"
         >
-          <input 
+          <UInput 
             v-model="product.name" 
             type="text" 
             placeholder="Product Name" 
             required 
             class="border p-2 rounded focus:ring focus:ring-blue-300"
+            :style="{backgroundColor:'white'}"
           />
   
-          <input 
+          <UInput 
             v-model="product.price" 
             type="text" 
             placeholder="Price" 
             required 
             class="border p-2 rounded focus:ring focus:ring-blue-300"
+            :style="{backgroundColor:'white'}"
           />
   
-          <input 
+          <UInput 
             type="file" 
             @change="handleImageUpload" 
             accept="image/*" 
             class="border p-2 rounded focus:ring focus:ring-blue-300"
+            :style="{backgroundColor:'white'}"
           />
   
           <!-- ✅ Image Preview -->
