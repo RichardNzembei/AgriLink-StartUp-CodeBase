@@ -3,7 +3,7 @@ import axios from "axios";
 
 const apiBaseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://agrilink-solutions.onrender.com"
+    ? "https://agrilink-startup-codebase.onrender.com"
     : "http://localhost:5000";
 
 export const usePostStore = defineStore("post", {
