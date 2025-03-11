@@ -13,6 +13,7 @@
 
             <transition name="fade">
                 <div v-if="activeFarmers.length">
+                    <span class="text-mono text-black font-sans">Active farmers</span>
                     <div v-for="farmer in activeFarmers" :key="farmer.id" class="flex items-center mb-4">
                         <UIcon name="i-heroicons-user-circle-solid" size="20" class="mr-2 text-green-600" />
                         <p class="text-sm text-gray-600">{{ farmer.first_name }} {{ farmer.last_name }} ({{ farmer.phone }})</p>
