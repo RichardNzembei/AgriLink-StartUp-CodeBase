@@ -1,6 +1,6 @@
 <template>
     <AppFarmerNavbar />
-    <div class="community-page px-4 py-6 mt-20 w-full flex flex-col md:flex-row">
+    <div class="community-page px-4 py-6 mt-20 w-full flex flex-col md:flex-row bg-white">
         
         <!-- Sidebar for Active Farmers (Hidden on Small Screens) -->
         <div class="w-full md:w-1/4 pr-4 border-r border-gray-200 relative md:block" :class="{ 'hidden': !showFarmers, 'block': showFarmers }">
