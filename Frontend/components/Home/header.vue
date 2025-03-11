@@ -7,14 +7,7 @@
       <p class="text-sm text-gray-500">Enjoy our services!</p>
     </div>
 
-    <UInput
-      v-model="search"
-      placeholder="Search here..."
-      size="md"
-      icon="i-heroicons-magnifying-glass"
-      class="mb-6"
-      :style="{ backgroundColor: 'white', color: 'black' }"
-    />
+ 
   </div>
 </template>
 

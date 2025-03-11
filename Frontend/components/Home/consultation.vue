@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import type { _backgroundColor } from '#tailwind-config/theme';
+const phoneNumber = "+254716899396"; // Kenya country code +254
 
+const callSupport = () => {
+    window.location.href = `tel:${phoneNumber}`;
+};
+
+const chatOnWhatsApp = () => {
+    window.open(`https://wa.me/${phoneNumber}`, "_blank");
+};
 </script>
 
 <template>
@@ -17,10 +24,14 @@ import type { _backgroundColor } from '#tailwind-config/theme';
             </div>
         </template>
         <div class="space-x-8">
-            <UButton variant="ghost" size="lg" aria-label="Chat" class="hover:bg-green-100 p-4 rounded-full">
+            <UButton variant="ghost" size="lg" aria-label="Call Support" 
+                class="hover:bg-green-100 p-4 rounded-full"
+                @click="callSupport">
                 <UIcon name="i-heroicons-phone-solid" size="32" class="text-green-600" />
             </UButton>
-            <UButton variant="ghost" size="lg" aria-label="Chat" class="hover:bg-green-100 p-4 rounded-full">
+            <UButton variant="ghost" size="lg" aria-label="Chat on WhatsApp" 
+                class="hover:bg-green-100 p-4 rounded-full"
+                @click="chatOnWhatsApp">
                 <UIcon name="i-heroicons-chat-bubble-oval-left-ellipsis-solid" size="32" class="text-green-600" />
             </UButton>
         </div>
