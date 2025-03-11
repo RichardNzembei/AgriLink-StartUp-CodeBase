@@ -36,7 +36,7 @@
 
             <!-- Posts Feed -->
             <div v-for="post in posts" :key="post.id" class="post mb-4">
-                <UCard class="shadow-lg bg-white p-4 rounded-lg">
+                <UCard class="shadow-lg bg-white p-4 rounded-lg" :style="{backgroundColor:'white'}">
                     <div class="flex justify-between items-start">
                         <div>
                             <h4 class="font-medium text-green-700">{{ post.author }}</h4>
@@ -63,6 +63,7 @@
         placeholder="Write a comment..." 
         rows="2" 
         class="resize-none border-gray-300 focus:border-green-500 rounded-lg" 
+        :style="{backgroundColor:'white'}"
     />
     <UButton 
         block 
