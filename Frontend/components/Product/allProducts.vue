@@ -53,7 +53,11 @@
             </div>
             <p v-else class="text-gray-500 text-xs">No reviews yet.</p>
             <input v-model="newProductReviews[product.id]" type="text" placeholder="Review this product..." class="border rounded w-full p-2 text-xs text-gray-700" />
-            <button @click="addProductReview(product.id)" class="mt-2 bg-blue-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-blue-600 transition">Submit</button>
+            <button @click="addProductReview(product.id)" class="mt-2 bg-blue-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-blue-600 transition">
+              <i v-if="loadingButtons[product.id]" class="fas fa-spinner fa-spin"></i>
+              <span v-else>Submit</span>
+
+            </button>
           </div>
 
           <!-- Seller Reviews -->
@@ -64,9 +68,11 @@
                 <p class="text-gray-700"><span class="font-semibold">{{ review.userPhone }}:</span> {{ review.comment }}</p>
               </div>
             </div>
-            <p v-else class="text-gray-500 text-xs">No seller reviews yet.</p>
             <input v-model="newSellerReviews[product.ownerPhone]" type="text" placeholder="Review this seller..." class="border rounded w-full p-2 text-xs text-gray-700" />
-            <button @click="addSellerReview(product.ownerPhone)" class="mt-2 bg-green-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-green-600 transition">Submit</button>
+            <button @click="addSellerReview(product.ownerPhone)" class="mt-2 bg-green-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-green-600 transition">
+              <i v-if="loadingButtons[product.ownerPhone]" class="fas fa-spinner fa-spin"></i>
+              <span v-else>Submit</span>
+            </button>
           </div>
         </div>
       </div>
@@ -80,6 +86,7 @@ import { useProductStore } from "~/store/useProductStore";
 const productStore = useProductStore();
 const products = ref([]);
 const loading = ref(false);
+const loadingButtons = ref({});
 const newProductReviews = ref({});
 const newSellerReviews = ref({});
 const expandedProducts = ref([]); // Tracks expanded products
@@ -112,9 +119,12 @@ const addProductReview = async (productId) => {
   const reviewText = newProductReviews.value[productId];
   if (!reviewText) return;
 
+  loadingButtons.value[productId] = true;
+
   const userPhone = typeof window !== "undefined" ? localStorage.getItem("currentUserPhone") : null;
   if (!userPhone) {
     console.error("❌ User not logged in!");
+    loadingButtons.value[productId] = false;
     return;
   }
 
@@ -123,6 +133,8 @@ const addProductReview = async (productId) => {
     newProductReviews.value[productId] = "";
   } catch (error) {
     console.error("❌ Error adding product review:", error);
+  } finally {
+    loadingButtons.value[productId] = false; // Corrected reset
   }
 };
 
@@ -130,9 +142,12 @@ const addSellerReview = async (sellerPhone) => {
   const reviewText = newSellerReviews.value[sellerPhone];
   if (!reviewText) return;
 
+  loadingButtons.value[sellerPhone] = true; // Corrected to true
+
   const userPhone = typeof window !== "undefined" ? localStorage.getItem("currentUserPhone") : null;
   if (!userPhone) {
     console.error("❌ User not logged in!");
+    loadingButtons.value[sellerPhone] = false;
     return;
   }
 
@@ -141,9 +156,12 @@ const addSellerReview = async (sellerPhone) => {
     newSellerReviews.value[sellerPhone] = ""; // Clear the input after submission
   } catch (error) {
     console.error("❌ Error adding seller review:", error);
-    alert("Failed to add seller review. Please try again."); // Notify the user
+    alert("Failed to add seller review. Please try again.");
+  } finally {
+    loadingButtons.value[sellerPhone] = false; // Corrected reset
   }
 };
+
 </script>
 <style>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
