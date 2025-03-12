@@ -26,19 +26,21 @@
           <h3 class="font-bold text-lg text-gray-800">{{ product.name }}</h3>
           <p class="text-gray-700">Price: <span class="font-semibold">{{ product.price }}</span> per {{ product.unit }}</p>
           <p class="text-gray-700">Supply: <span class="font-semibold">{{ product.supplyAmount }}</span> {{ product.unit }}s</p>
-          <p class="text-gray-600">Seller: <span class="text-blue-600 font-medium">{{ product.ownerPhone }}</span></p>
+          <p class="text-gray-600">
+            Seller: <span class="text-blue-600 font-medium">{{ product.ownerPhone }}</span>
+          </p>
         </div>
 
         <!-- Contact Buttons -->
         <div class="flex justify-between items-center mt-4">
           <a
-            :href="'tel:' + product.ownerPhone"
+            :href="'tel:' + formatPhone(product.ownerPhone)"
             class="flex items-center bg-blue-500 text-white px-3 py-2 rounded shadow hover:bg-blue-600 transition"
           >
             <i class="fas fa-phone-alt mr-2"></i>
           </a>
           <a
-            :href="'https://wa.me/' + product.ownerPhone"
+            :href="'https://wa.me/' + formatWhatsApp(product.ownerPhone)"
             target="_blank"
             class="flex items-center bg-green-500 text-white px-3 py-2 rounded shadow hover:bg-green-600 transition"
           >
@@ -68,6 +70,16 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+// Function to format phone numbers for calling
+const formatPhone = (phone) => {
+  return phone.startsWith("0") ? "+254" + phone.slice(1) : phone;
+};
+
+// Function to format phone numbers for WhatsApp
+const formatWhatsApp = (phone) => {
+  return phone.startsWith("0") ? "+254" + phone.slice(1) : phone;
+};
 </script>
 
 <style>
