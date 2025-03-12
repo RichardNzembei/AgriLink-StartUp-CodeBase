@@ -18,7 +18,8 @@
                     </div>
                 </div>
                 <UButton class="text-red-500 hover:text-red-700" variant="outline" @click="logout">
-                    Logout
+                    <UIcon name="lucide:log-out" class="text-red-500 w-6 h-6" />
+
                 </UButton>
             </div>
 
