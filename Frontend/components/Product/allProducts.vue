@@ -35,14 +35,14 @@
             :href="'tel:' + product.ownerPhone"
             class="flex items-center bg-blue-500 text-white px-3 py-2 rounded shadow hover:bg-blue-600 transition"
           >
-            <i class="fas fa-phone-alt mr-2"></i> Call
+            <i class="fas fa-phone-alt mr-2"></i>
           </a>
           <a
             :href="'https://wa.me/' + product.ownerPhone"
             target="_blank"
             class="flex items-center bg-green-500 text-white px-3 py-2 rounded shadow hover:bg-green-600 transition"
           >
-            <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+            <i class="fab fa-whatsapp mr-2"></i> 
           </a>
         </div>
       </div>
