@@ -13,7 +13,7 @@
 
       <div v-for="seller in sellerStore.sellers" :key="seller.sellerPhone"
         class="bg-white shadow-md p-4 rounded-lg mb-4 transition-transform hover:scale-105">
-        <h3 class="text-xl font-semibold flex items-center gap-2">
+        <h3 class="text-xl text-black font-semibold flex items-center gap-2">
           <i class="fas fa-user-circle text-blue-500"></i> Seller: {{ seller.sellerPhone }}
         </h3>
 
