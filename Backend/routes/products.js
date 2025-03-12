@@ -9,9 +9,9 @@ const upload = multer({ storage: multer.memoryStorage() });
 // ✅ Upload product
 router.post("/products", upload.single("image"), async (req, res) => {
   try {
-    const { ownerPhone, name, price } = req.body;
+    const { ownerPhone, name, price, unit, supplyAmount } = req.body;
 
-    if (!ownerPhone || !name || !price || !req.file) {
+    if (!ownerPhone || !name || !price || !unit || !supplyAmount || !req.file) {
       console.warn("⚠️ Missing required product fields!");
       return res.status(400).json({ error: "Missing product data" });
     }
@@ -36,8 +36,10 @@ router.post("/products", upload.single("image"), async (req, res) => {
       const productData = {
         name,
         price,
+        unit,
         imageUrl,
         ownerPhone,
+        supplyAmount,
         createdAt: new Date(),
       };
 

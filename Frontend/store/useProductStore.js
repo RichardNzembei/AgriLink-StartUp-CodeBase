@@ -14,7 +14,7 @@ export const useProductStore = defineStore("product", {
 
   actions: {
     async uploadProduct(product, imageFile) {
-      if (!product.name || !product.price || !imageFile) {
+      if (!product.name || !product.price || !product.unit || !product.supplyAmount || !imageFile) {
         console.warn("⚠️ Missing product data!");
         return Promise.reject("Missing product details");
       }
@@ -46,6 +46,8 @@ export const useProductStore = defineStore("product", {
         const formData = new FormData();
         formData.append("name", product.name);
         formData.append("price", product.price);
+        formData.append("unit", product.unit);
+        formData.append("supplyAmount", product.supplyAmount);
         formData.append("image", imageFile);
         formData.append("ownerPhone", userPhone); // ✅ Ensure this is included
 

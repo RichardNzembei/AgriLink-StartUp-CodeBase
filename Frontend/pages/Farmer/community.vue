@@ -5,7 +5,6 @@
         <!-- Sidebar for Active Farmers (Hidden on Small Screens) -->
         <div class="w-full md:w-1/4 pr-4 border-r border-gray-200 relative md:block" :class="{ 'hidden': !showFarmers, 'block': showFarmers }">
             <h4 class="font-semibold mb-2 flex items-center justify-between">
-                Active Farmers
                 <button @click="toggleFarmers" class="md:hidden text-green-500">
                     <UIcon :name="showFarmers ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'" size="20" />
                 </button>

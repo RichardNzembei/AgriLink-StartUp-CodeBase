@@ -59,6 +59,20 @@ export const useUserStore = defineStore("user", {
         console.error("Error fetching user data:", error);
       }
     },
+    async register(role, phone, first_name, last_name, email, password) {
+      const response = await fetch(`${apiBaseUrl}/api/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role, phone, first_name, last_name, email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      return response.json();
+    },
 
     async login(phone, password) {
       try {

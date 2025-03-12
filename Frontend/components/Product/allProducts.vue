@@ -1,3 +1,3 @@
 <template>
-    <h2>onboard</h2>
+    <h1>products</h1>
 </template>
