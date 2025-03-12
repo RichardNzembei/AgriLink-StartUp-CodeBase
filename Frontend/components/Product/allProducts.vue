@@ -49,7 +49,7 @@
             </div>
             <p v-else class="text-gray-500 text-xs">No reviews yet.</p>
             <input v-model="newProductReviews[product.id]" type="text" placeholder="Review this product..."
-              class="border rounded w-full p-2 text-xs text-gray-700" />
+              class="border rounded w-full p-2 text-xs text-gray-700 bg-white" />
             <button @click="addProductReview(product.id)"
               class="mt-2 bg-blue-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-blue-600 transition">
               <i v-if="loadingButtons[product.id]" class="fas fa-spinner fa-spin"></i>
@@ -67,7 +67,7 @@
               </div>
             </div>
             <input v-model="newSellerReviews[product.ownerPhone]" type="text" placeholder="Review this seller..."
-              class="border rounded w-full p-2 text-xs text-gray-700" />
+              class="border rounded w-full p-2 text-xs text-gray-700 bg-white" />
             <button @click="addSellerReview(product.ownerPhone)"
               class="mt-2 bg-green-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-green-600 transition">
               <i v-if="loadingButtons[product.ownerPhone]" class="fas fa-spinner fa-spin"></i>
