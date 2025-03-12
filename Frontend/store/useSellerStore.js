@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-const apiBaseUrl = process.env.NODE_ENV === "production"
-  ? "https://agrilink-startup-codebase.onrender.com"
-  : "http://localhost:5000";
+const apiBaseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://agrilink-startup-codebase.onrender.com"
+    : "http://localhost:5000";
 
 export const useSellerStore = defineStore("sellerStore", {
   state: () => ({

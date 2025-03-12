@@ -1,15 +1,25 @@
 import { defineStore } from "pinia";
 
-const apiBaseUrl = process.env.NODE_ENV === "production"
-  ? "https://agrilink-startup-codebase.onrender.com"
-  : "http://localhost:5000";
+const apiBaseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://agrilink-startup-codebase.onrender.com"
+    : "http://localhost:5000";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
-    user: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("currentUser")) || null : null,
-    users: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("users")) || {} : {},
-    userPhone: typeof window !== "undefined" ? localStorage.getItem("currentUserPhone") || null : null,
-    users: [], 
+    user:
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("currentUser")) || null
+        : null,
+    users:
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("users")) || {}
+        : {},
+    userPhone:
+      typeof window !== "undefined"
+        ? localStorage.getItem("currentUserPhone") || null
+        : null,
+    users: [],
   }),
 
   getters: {
@@ -20,19 +30,19 @@ export const useUserStore = defineStore("user", {
   actions: {
     async fetchUsers() {
       try {
-          const response = await fetch(`${apiBaseUrl}/api/user`);
-          if (!response.ok) throw new Error("Failed to fetch users");
-  
-          const users = await response.json();
-          console.log("Fetched farmers:", users); // Debugging log
-  
-          this.users = users; // Store all users in the state
-          console.log("Updated users state:", this.users); // Verify state update
+        const response = await fetch(`${apiBaseUrl}/api/user`);
+        if (!response.ok) throw new Error("Failed to fetch users");
+
+        const users = await response.json();
+        console.log("Fetched farmers:", users);
+
+        this.users = users;
+        console.log("Updated users state:", this.users);
       } catch (error) {
-          console.error("Error fetching users:", error);
+        console.error("Error fetching users:", error);
       }
-  },
-  
+    },
+
     async fetchUserData(phone) {
       try {
         const response = await fetch(`${apiBaseUrl}/api/user/${phone}`);
@@ -61,9 +71,16 @@ export const useUserStore = defineStore("user", {
     },
     async register(role, phone, first_name, last_name, email, password) {
       const response = await fetch(`${apiBaseUrl}/api/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ role, phone, first_name, last_name, email, password }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role,
+          phone,
+          first_name,
+          last_name,
+          email,
+          password,
+        }),
       });
 
       if (!response.ok) {

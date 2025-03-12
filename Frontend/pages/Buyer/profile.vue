@@ -1,18 +1,7 @@
 <template>
-    <AppBuyerNavbar />
-    <div class="mt-20 mx-auto bg-white">
-      <AppBuyerProfile/>
-    </div>
-    
-  </template>
-  
-  <script setup>
+  <AppBuyerNavbar />
+  <div class="mt-20 mx-auto bg-white">
+    <AppBuyerProfile />
+  </div>
 
- 
-  
-  </script>
-  
-  <style scoped>
-  /* Page-specific styling */
-  </style>
-  
+</template>

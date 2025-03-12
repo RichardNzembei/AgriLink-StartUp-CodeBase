@@ -78,8 +78,9 @@ export const usePostStore = defineStore("post", {
         );
         const updatedPost = response.data;
         const postIndex = this.posts.findIndex((p) => p.id === postId);
-        if (postIndex !== -1) this.posts[postIndex].comments.push(updatedPost.comments.at(-1));
-        
+        if (postIndex !== -1)
+          this.posts[postIndex].comments.push(updatedPost.comments.at(-1));
+
         console.log("✅ Comment added successfully");
       } catch (error) {
         console.error("❌ Error adding comment:", error);

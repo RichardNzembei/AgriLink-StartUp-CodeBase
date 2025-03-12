@@ -1,18 +1,7 @@
 <template>
-    <AppFarmerNavbar />
-    <div class="mt-20 mx-auto bg-white">
-      <AppFarmerProfile/>
-    </div>
-    
-  </template>
-  
-  <script setup>
+  <AppFarmerNavbar />
+  <div class="mt-20 mx-auto bg-white">
+    <AppFarmerProfile />
+  </div>
 
- 
-  
-  </script>
-  
-  <style scoped>
-  /* Page-specific styling */
-  </style>
-  
+</template>
