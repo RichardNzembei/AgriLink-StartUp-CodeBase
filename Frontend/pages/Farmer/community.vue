@@ -27,8 +27,8 @@
         <!-- Main Content Area -->
         <div class="w-full md:w-3/4 pl-4">
             <!-- New Post Input -->
-            <UCard class="new-post mb-6 shadow-lg bg-white p-4 rounded-lg" :style="{backgroundColor:'white'}">
-                <UInput type="textarea" v-model="newPost" placeholder="Share your thoughts..." rows="3" class="resize-none rounded-lg border-gray-300 focus:border-green-500" :style="{backgroundColor:'white'}" />
+            <UCard class="new-post mb-6 shadow-lg bg-white p-4 rounded-lg" :style="{backgroundColor:'white', }">
+                <UInput type="textarea" v-model="newPost" placeholder="Share your thoughts..." rows="3" class="resize-none rounded-lg border-gray-300 focus:border-green-500" :style="{backgroundColor:'white' ,color: 'black' }" />
                 <UButton block class="mt-3 text-white bg-green-500 hover:bg-green-600 transition-all" @click="submitPost" :disabled="!newPost.trim()">
                     Post
                 </UButton>
@@ -63,7 +63,7 @@
         placeholder="Write a comment..." 
         rows="2" 
         class="resize-none border-gray-300 focus:border-green-500 rounded-lg" 
-        :style="{backgroundColor:'white'}"
+        :style="{backgroundColor:'white', color: 'black'}"
     />
     <UButton 
         block 
