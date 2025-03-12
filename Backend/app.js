@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: [
-      "https://agri-link-start-up-code-base.vercel.app/",
+      "https://agri-link-start-up-code-base.vercel.app",
       "http://localhost:3000",
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'],
