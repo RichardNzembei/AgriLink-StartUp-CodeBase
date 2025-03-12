@@ -1,14 +1,16 @@
 <template>
-    <AppBuyerNavbar/>
-      <div class="bg-white px-4 py-6 mt-20">
-          <HomeHeader />
-          <HomeConsultation />
-           <ProductAllProducts/>
-      </div>
-  </template>
+    <AppFarmerNavbar/>
+    <div class="bg-white px-4 py-6 mt-20">
+        <HomeHeader />
+        <HomeConsultation />
+        <ProductAllProducts/>
+      
+    </div>
 
-  <style scoped>
-  body {
-      font-family: "Poppins", sans-serif;
-  }
-  </style>
+</template>
+
+<style scoped>
+body {
+    font-family: "Poppins", sans-serif;
+}
+</style>
