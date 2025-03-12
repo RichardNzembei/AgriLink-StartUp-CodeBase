@@ -8,7 +8,7 @@
                         class="w-24 h-24 rounded-full object-cover shadow-md border-4 border-blue-400 transform transition duration-500 hover:scale-110 hover:rotate-3" />
                     <div>
                         <h2
-                            class="text-2xl font-bold text-gray-900 transition-opacity duration-700 opacity-80 hover:opacity-100">
+                            class="text-xl sm:text-sm font-bold text-gray-900 transition-opacity duration-700 opacity-80 hover:opacity-100">
                             {{ buyer.fullName }}
                         </h2>
                         <p class="text-sm text-gray-500 font-medium transition-opacity duration-500 hover:opacity-100">
