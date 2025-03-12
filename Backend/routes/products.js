@@ -78,12 +78,11 @@ router.get("/products", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-router.get("/products", async (req, res) => {
+router.get("/allproducts", async (req, res) => {
   try {
     console.log("🔄 Fetching all products...");
 
     const snapshot = await db.collection("products").get();
-
     const products = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
     console.log("✅ All products retrieved:", products.length);
@@ -93,6 +92,5 @@ router.get("/products", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 module.exports = router;

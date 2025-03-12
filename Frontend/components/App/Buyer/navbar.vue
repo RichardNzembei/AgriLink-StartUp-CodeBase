@@ -8,7 +8,7 @@
           <UButton
             variant="ghost"
             size="sm"
-            to="/Farmer/dashboard"
+            to="/Buyer/dashboard"
             aria-label="Home"
             class="hover:text-green-600 flex flex-col items-center"
           >
@@ -23,7 +23,7 @@
           <UButton
             variant="ghost"
             size="sm"
-            to="/Farmer/profile"
+            to="/Buyer/profile"
             aria-label="Profile"
             class="hover:text-green-600 flex flex-col items-center"
           >

@@ -95,25 +95,17 @@ export const useProductStore = defineStore("product", {
         this.loading = false;
       }
     },
-    async fetchAllProducts() {
+    async getAllProducts() {
       try {
-        this.loading = true;
-    
         console.log("🔄 Fetching all products...");
-    
-        // Fetch all products without filtering by user phone
-        const response = await axios.get(`${apiBaseUrl}/api/products`);
-    
-        // Store retrieved products
-        this.products = response.data;
-    
-        console.log("✅ All products retrieved:", this.products.length);
+        const response = await axios.get(`${apiBaseUrl}/api/allproducts`);
+        console.log("✅ Products retrieved:", response.data.length );
+        return response.data;
       } catch (error) {
         console.error("❌ Fetch error:", error);
-      } finally {
-        this.loading = false;
+        return [];
       }
-    }
+    },
     
   },
 });

@@ -39,9 +39,9 @@
 
         <!-- ✅ Price Unit Selection -->
         <select v-model="product.unit" class="border p-2 rounded focus:ring focus:ring-blue-300">
-          <option value="pieces">Per Piece</option>
-          <option value="kgs">Per Kg</option>
-          <option value="cartons">Per Carton</option>
+          <option value="piece">Per Piece</option>
+          <option value="kg">Per Kg</option>
+          <option value="carton">Per Carton</option>
         </select>
 
         <UInput 
