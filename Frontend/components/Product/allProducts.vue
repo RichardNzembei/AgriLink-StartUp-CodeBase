@@ -48,7 +48,7 @@
             <h4 class="text-md font-semibold text-gray-800 mb-2">Product Reviews</h4>
             <div v-if="(product.reviews ?? []).length > 0" class="space-y-2">
               <div v-for="(review, index) in (product.reviews ?? []).slice(0, 2)" :key="index" class="bg-gray-100 p-1 rounded text-xs">
-                <p class="text-gray-700"><span class="font-semibold">{{ review.user }}:</span> {{ review.comment }}</p>
+                <p class="text-gray-700"><span class="font-semibold">{{ review.userPhone }}:</span> {{ review.comment }}</p>
               </div>
             </div>
             <p v-else class="text-gray-500 text-xs">No reviews yet.</p>
@@ -61,7 +61,7 @@
             <h4 class="text-md font-semibold text-gray-800 mb-2">Seller Reviews</h4>
             <div v-if="(product.sellerReviews ?? []).length > 0" class="space-y-2">
               <div v-for="(review, index) in (product.sellerReviews ?? []).slice(0, 2)" :key="index" class="bg-gray-100 p-1 rounded text-xs">
-                <p class="text-gray-700"><span class="font-semibold">{{ review.user }}:</span> {{ review.comment }}</p>
+                <p class="text-gray-700"><span class="font-semibold">{{ review.userPhone }}:</span> {{ review.comment }}</p>
               </div>
             </div>
             <p v-else class="text-gray-500 text-xs">No seller reviews yet.</p>
@@ -73,7 +73,6 @@
     </div>
   </section>
 </template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 import { useProductStore } from "~/store/useProductStore";
@@ -109,32 +108,43 @@ const toggleDetails = (productId) => {
 const formatPhone = (phone) => phone.startsWith("0") ? "+254" + phone.slice(1) : phone;
 const formatWhatsApp = (phone) => phone.startsWith("0") ? "+254" + phone.slice(1) : phone;
 
-const addProductReview = (productId) => {
+const addProductReview = async (productId) => {
   const reviewText = newProductReviews.value[productId];
   if (!reviewText) return;
 
-  const product = products.value.find(p => p.id === productId);
-  if (product) {
-    product.reviews = product.reviews ?? []; // Ensure array exists
-    product.reviews.push({ user: "Anonymous", comment: reviewText });
+  const userPhone = typeof window !== "undefined" ? localStorage.getItem("currentUserPhone") : null;
+  if (!userPhone) {
+    console.error("❌ User not logged in!");
+    return;
   }
-  newProductReviews.value[productId] = "";
+
+  try {
+    await productStore.addProductReview(productId, userPhone, reviewText);
+    newProductReviews.value[productId] = "";
+  } catch (error) {
+    console.error("❌ Error adding product review:", error);
+  }
 };
 
-const addSellerReview = (sellerPhone) => {
+const addSellerReview = async (sellerPhone) => {
   const reviewText = newSellerReviews.value[sellerPhone];
   if (!reviewText) return;
 
-  products.value.forEach(product => {
-    if (product.ownerPhone === sellerPhone) {
-      product.sellerReviews = product.sellerReviews ?? []; // Ensure array exists
-      product.sellerReviews.push({ user: "Anonymous", comment: reviewText });
-    }
-  });
-  newSellerReviews.value[sellerPhone] = "";
+  const userPhone = typeof window !== "undefined" ? localStorage.getItem("currentUserPhone") : null;
+  if (!userPhone) {
+    console.error("❌ User not logged in!");
+    return;
+  }
+
+  try {
+    await productStore.addSellerReview(sellerPhone, userPhone, reviewText);
+    newSellerReviews.value[sellerPhone] = ""; // Clear the input after submission
+  } catch (error) {
+    console.error("❌ Error adding seller review:", error);
+    alert("Failed to add seller review. Please try again."); // Notify the user
+  }
 };
 </script>
-
 <style>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
 

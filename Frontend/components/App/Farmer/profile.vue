@@ -14,11 +14,7 @@
                         <p class="text-sm text-gray-500 font-medium transition-opacity duration-500 hover:opacity-100">
                             {{ farmer.farmerType }}
                         </p>
-                        <div class="mt-2 flex items-center text-sm text-gray-500">
-                            <span class="font-semibold text-green-600">
-                                {{ farmer.followers }} Followers
-                            </span>
-                        </div>
+                     
                     </div>
                 </div>
                 <UButton class="text-red-500 hover:text-red-700" variant="outline" @click="logout">
@@ -33,10 +29,6 @@
                     </p>
                 </div>
                 <ul class="mt-4 space-y-3">
-                    <li class="flex items-center space-x-2 text-gray-700 transition-transform duration-500 hover:translate-x-2">
-                        <UIcon name="heroicons:map" size="24" class="text-green-500" />
-                        <span>{{ farmer.location }}</span>
-                    </li>
                     <li class="flex items-center space-x-2 text-gray-700 transition-transform duration-500 hover:translate-x-2">
                         <UIcon name="heroicons:envelope" size="20" class="text-green-500" />
                         <span>{{ farmer.email }}</span>

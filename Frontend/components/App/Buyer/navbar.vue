@@ -17,7 +17,16 @@
           </UButton>
   
   
-  
+          <UButton
+          variant="ghost"
+          size="sm"
+          to="/Buyer/reviews"
+          aria-label="Reviews"
+          class="hover:text-green-600 flex flex-col items-center"
+        >
+          <UIcon name="i-heroicons-chat-bubble-left-right-solid" size="24" class="mb-1" />
+          <span class="text-sm">Reviews</span>
+        </UButton>
         
         
           <UButton
