@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-lg font-semibold">Featured Products</h2>
+      <h2 class="text-lg text-black font-semibold">Featured Products</h2>
       <ULink to="/Farmer/products" class="text-green-500 text-sm">See All</ULink>
     </div>
     <div class="grid grid-cols-2 gap-4">
