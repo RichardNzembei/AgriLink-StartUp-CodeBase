@@ -5,81 +5,53 @@
     <div v-if="loading" class="flex justify-center items-center">
       <p class="text-gray-500 text-lg">Loading products...</p>
     </div>
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <div v-for="product in products" :key="product.id"
         class="border rounded-lg p-4 shadow-md bg-white transition duration-300 hover:shadow-lg">
         <img :src="product.imageUrl" alt="Product Image" class="w-full h-40 object-cover rounded-t-lg" />
 
-
         <div class="p-3">
           <h3 class="font-bold text-lg text-gray-800">{{ product.name }}</h3>
-          <p class="text-gray-700 text-sm">Price: <span class="font-semibold">{{ product.price }}</span> per {{
-            product.unit }}</p>
-          <p class="text-gray-700 text-sm">Supply: <span class="font-semibold">{{ product.supplyAmount }}</span> {{
-            product.unit }}s</p>
-          <p class="text-gray-600 text-sm">Seller: <span class="text-blue-600 font-medium">{{ product.ownerPhone
-              }}</span></p>
+          <p class="text-gray-700 text-sm">Price: <span class="font-semibold">{{ product.price }}</span> per {{ product.unit }}</p>
+          <p class="text-gray-700 text-sm">Supply: <span class="font-semibold">{{ product.supplyAmount }}</span> {{ product.unit }}s</p>
         </div>
-        <button @click="toggleDetails(product.id)"
+
+        <button @click="openModal(product)"
           class="mt-2 bg-gray-200 w-full py-2 rounded hover:bg-gray-300 transition flex items-center justify-center">
-          <i v-if="expandedProducts.includes(product.id)" class="fas fa-chevron-up"></i>
-          <i v-else class="fas fa-chevron-down"></i>
+          <i class="fas fa-eye mr-2"></i> View More
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal (Only visible when a product is selected) -->
+    <div v-if="selectedProduct" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
+      <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative">
+        <button @click="selectedProduct = null" class="absolute top-3 right-3 text-gray-600 hover:text-red-500">
+          <i class="fas fa-times text-xl"></i>
         </button>
 
-        <div v-if="expandedProducts.includes(product.id)" class="mt-4">
-          <div class="flex justify-between items-center">
-            <a :href="'tel:' + formatPhone(product.ownerPhone)"
-              class="bg-blue-500 text-white p-2 rounded-full shadow hover:bg-blue-600 transition">
-              <i class="fas fa-phone-alt"></i>
-            </a>
-            <a :href="'https://wa.me/' + formatWhatsApp(product.ownerPhone)" target="_blank"
-              class="bg-green-500 text-white p-2 rounded-full shadow hover:bg-green-600 transition">
-              <i class="fab fa-whatsapp"></i>
-            </a>
-          </div>
+        <img :src="selectedProduct.imageUrl" alt="Product Image" class="w-full h-48 object-cover rounded" />
+        <h3 class="font-bold text-lg text-gray-800 mt-3">{{ selectedProduct.name }}</h3>
+        <p class="text-gray-700 text-sm">Price: <span class="font-semibold">{{ selectedProduct.price }}</span> per {{ selectedProduct.unit }}</p>
+        <p class="text-gray-700 text-sm">Supply: <span class="font-semibold">{{ selectedProduct.supplyAmount }}</span> {{ selectedProduct.unit }}s</p>
+        <p class="text-gray-600 text-sm">Seller: <span class="text-blue-600 font-medium">{{ selectedProduct.ownerPhone }}</span></p>
 
-          <div class="mt-4 border-t pt-2">
-            <h4 class="text-md font-semibold text-gray-800 mb-2">Product Reviews</h4>
-            <div v-if="(product.reviews ?? []).length > 0" class="space-y-2">
-              <div v-for="(review, index) in (product.reviews ?? []).slice(0, 2)" :key="index"
-                class="bg-gray-100 p-1 rounded text-xs">
-                <p class="text-gray-700"><span class="font-semibold">{{ review.userPhone }}:</span> {{ review.comment }}
-                </p>
-              </div>
-            </div>
-            <p v-else class="text-gray-500 text-xs">No reviews yet.</p>
-            <input v-model="newProductReviews[product.id]" type="text" placeholder="Review this product..."
-              class="border rounded w-full p-2 text-xs text-gray-700 bg-white" />
-            <button @click="addProductReview(product.id)"
-              class="mt-2 bg-blue-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-blue-600 transition">
-              <i v-if="loadingButtons[product.id]" class="fas fa-spinner fa-spin"></i>
-              <span v-else>Submit</span>
-
-            </button>
-          </div>
-          <div class="mt-4 border-t pt-2">
-            <h4 class="text-md font-semibold text-gray-800 mb-2">Seller Reviews</h4>
-            <div v-if="(product.sellerReviews ?? []).length > 0" class="space-y-2">
-              <div v-for="(review, index) in (product.sellerReviews ?? []).slice(0, 2)" :key="index"
-                class="bg-gray-100 p-1 rounded text-xs">
-                <p class="text-gray-700"><span class="font-semibold">{{ review.userPhone }}:</span> {{ review.comment }}
-                </p>
-              </div>
-            </div>
-            <input v-model="newSellerReviews[product.ownerPhone]" type="text" placeholder="Review this seller..."
-              class="border rounded w-full p-2 text-xs text-gray-700 bg-white" />
-            <button @click="addSellerReview(product.ownerPhone)"
-              class="mt-2 bg-green-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-green-600 transition">
-              <i v-if="loadingButtons[product.ownerPhone]" class="fas fa-spinner fa-spin"></i>
-              <span v-else>
-                Submit</span>
-            </button>
-          </div>
+        <div class="mt-4 flex gap-4">
+          <a :href="'tel:' + formatPhone(selectedProduct.ownerPhone)"
+            class="bg-blue-500 text-white p-2 rounded-full shadow hover:bg-blue-600 transition">
+            <i class="fas fa-phone-alt"></i>
+          </a>
+          <a :href="'https://wa.me/' + formatWhatsApp(selectedProduct.ownerPhone)" target="_blank"
+            class="bg-green-500 text-white p-2 rounded-full shadow hover:bg-green-600 transition">
+            <i class="fab fa-whatsapp"></i>
+          </a>
         </div>
       </div>
     </div>
   </section>
 </template>
+
 <script setup>
 import { ref, onMounted } from "vue";
 import { useProductStore } from "~/store/useProductStore";
@@ -91,6 +63,7 @@ const loadingButtons = ref({});
 const newProductReviews = ref({});
 const newSellerReviews = ref({});
 const expandedProducts = ref([]);
+const selectedProduct = ref(null);
 
 onMounted(async () => {
   loading.value = true;
@@ -102,6 +75,9 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+const openModal = (product) => {
+  selectedProduct.value = product;
+};
 const toggleDetails = (productId) => {
   if (expandedProducts.value.includes(productId)) {
     expandedProducts.value = expandedProducts.value.filter(id => id !== productId);
