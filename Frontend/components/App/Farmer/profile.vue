@@ -58,7 +58,7 @@ const farmer = computed(() => ({
         ? `${userStore.user.first_name.toUpperCase()} ${userStore.user.last_name?.toUpperCase() || ""}`
         : "Guest",
     farmerType: userStore.user?.role || "Farmer",
-    profileImage: userStore.user?.profileImage || "https://via.placeholder.com/150",
+    profileImage: userStore.user?.profileImage || "/profile.png",
     location: userStore.user?.location || "Unknown",
     email: userStore.user?.email || "N/A",
     phone: userStore.user?.phone || "N/A",
