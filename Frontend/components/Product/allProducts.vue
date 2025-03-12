@@ -1,6 +1,6 @@
 <template>
   <section class="p-6 bg-gray-50 min-h-screen">
-    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Available Products</h2>
+    <h2 class="text-xl sm:text-md font-bold mb-6 text-center text-gray-800">Available Products</h2>
 
     <div v-if="loading" class="flex justify-center items-center">
       <p class="text-gray-500 text-lg">Loading products...</p>
@@ -72,7 +72,7 @@
               class="mt-2 bg-green-500 text-white text-xs px-3 py-1 rounded shadow hover:bg-green-600 transition">
               <i v-if="loadingButtons[product.ownerPhone]" class="fas fa-spinner fa-spin"></i>
               <span v-else>
-                <!-- Seller Reviews -->Submit</span>
+                Submit</span>
             </button>
           </div>
         </div>
