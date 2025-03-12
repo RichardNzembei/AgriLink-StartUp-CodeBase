@@ -10,7 +10,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://agri-link-start-up-code-base.vercel.app/",
+      "http://localhost:3000",
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'],
+  })
+);
 
 // Use routes
 app.use('/api', userRoutes);
