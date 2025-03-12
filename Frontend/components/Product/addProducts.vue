@@ -27,6 +27,7 @@
           placeholder="Product Name" 
           required 
           class="border p-2 rounded focus:ring focus:ring-blue-300"
+          :style="{ backgroundColor: 'white', color: 'black' }" 
         />
 
         <UInput 
@@ -35,10 +36,11 @@
           placeholder="Price" 
           required 
           class="border p-2 rounded focus:ring focus:ring-blue-300"
+          :style="{ backgroundColor: 'white', color: 'black' }" 
         />
 
         <!-- ✅ Price Unit Selection -->
-        <select v-model="product.unit" class="border p-2 rounded focus:ring focus:ring-blue-300">
+        <select v-model="product.unit" class="border p-2 rounded focus:ring focus:ring-blue-300 bg-white text-black">
           <option value="piece">Per Piece</option>
           <option value="kg">Per Kg</option>
           <option value="carton">Per Carton</option>
@@ -50,13 +52,14 @@
           placeholder="Amount to Supply" 
           required 
           class="border p-2 rounded focus:ring focus:ring-blue-300"
+          :style="{ backgroundColor: 'white', color: 'black' }" 
         />
 
         <input 
   type="file" 
   @change="handleImageUpload" 
   accept="image/*" 
-  class="border p-2 rounded focus:ring focus:ring-blue-300"
+  class="border p-2 rounded focus:ring focus:ring-blue-300 bg-white text-black"
 />
 
 
