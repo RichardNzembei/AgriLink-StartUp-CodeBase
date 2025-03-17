@@ -1,5 +1,5 @@
 <template>
-    <div class="flex sm:grid-cols-2 lg:grid-cols-4 gap-8 p-8 justify-center items-center">
+    <div class="flex flex-col sm:grid-cols-2 lg:grid-cols-4 gap-8 p-8 justify-center items-center">
       <NuxtLink to="/Buyer/farmers">
         <div class="w-36 h-36 sm:w-56 sm:h-56 bg-green-500 text-white border-4 border-green-700 rounded-2xl shadow-lg 
             flex flex-col justify-center items-center cursor-pointer hover:bg-green-600 
