@@ -1,81 +1,47 @@
 <template>
   <div class="p-4 sm:p-6 bg-white min-h-screen">
-    <!-- Back Button -->
     <NuxtLink to="/Farmer/dashboard" class="inline-block mb-4 sm:mb-6">
       <div class="flex items-center text-green-700 hover:text-green-800 transition-colors duration-300">
         <UIcon name="i-heroicons-arrow-left-solid" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 animate-float" />
         <span class="text-sm sm:text-base font-semibold">Back to Dashboard</span>
       </div>
     </NuxtLink>
-
-    <!-- Form Section -->
     <section class="max-w-2xl mx-auto">
       <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Add a Product</h1>
-
-      <!-- Form -->
       <form @submit.prevent="submitProduct" class="bg-white p-6 rounded-lg shadow-lg space-y-6">
-        <!-- Product Name -->
         <div>
           <label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
-          <UInput
-            v-model="product.name"
-            type="text"
-            id="product-name"
-            placeholder="Enter product name"
-            required
+          <UInput v-model="product.name" type="text" id="product-name" placeholder="Enter product name" required
             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
-          />
+            :style="{ backgroundColor: 'white', color: 'black' }" />
         </div>
 
-        <!-- Price -->
         <div>
           <label for="product-price" class="block text-sm font-medium text-gray-700 mb-1">Price</label>
-          <UInput
-            v-model="product.price"
-            type="text"
-            id="product-price"
-            placeholder="Enter price"
-            required
+          <UInput v-model="product.price" type="text" id="product-price" placeholder="Enter price" required
             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
-          />
+            :style="{ backgroundColor: 'white', color: 'black' }" />
         </div>
-
-        <!-- Unit -->
         <div>
           <label for="product-unit" class="block text-sm font-medium text-gray-700 mb-1">Unit</label>
-          <select
-            v-model="product.unit"
-            id="product-unit"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-700 transition-all"
-          >
+          <select v-model="product.unit" id="product-unit"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-700 transition-all">
             <option value="" disabled selected>Select a unit</option>
             <option value="piece">Per Piece</option>
             <option value="kg">Per Kg</option>
             <option value="carton">Per Carton</option>
           </select>
         </div>
-
-        <!-- Supply Amount -->
         <div>
           <label for="supply-amount" class="block text-sm font-medium text-gray-700 mb-1">Amount to Supply</label>
-          <UInput
-            v-model="product.supplyAmount"
-            type="number"
-            id="supply-amount"
-            placeholder="Enter amount"
-            required
+          <UInput v-model="product.supplyAmount" type="number" id="supply-amount" placeholder="Enter amount" required
             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
-          />
+            :style="{ backgroundColor: 'white', color: 'black' }" />
         </div>
-
-        <!-- Category -->
         <div>
           <label for="product-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-          <select
-            v-model="product.category"
-            id="product-category"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-700 transition-all"
-          >
+          <select v-model="product.category" id="product-category"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-700 transition-all">
             <option value="" disabled selected>Select a category</option>
             <option value="cereals_grains">Cereals & Grains</option>
             <option value="fruits">Fruits</option>
@@ -91,35 +57,19 @@
           </select>
         </div>
 
-        <!-- Image Upload -->
         <div>
           <label for="product-image" class="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
-          <input
-            type="file"
-            id="product-image"
-            @change="handleImageUpload"
-            accept="image/*"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-700 transition-all"
-          />
-          <!-- Image Preview -->
-          <img
-            v-if="imagePreview"
-            :src="imagePreview"
-            alt="Image preview"
-            class="mt-4 w-32 h-32 object-cover rounded-lg shadow-sm"
-          />
+          <input type="file" id="product-image" @change="handleImageUpload" accept="image/*"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white text-gray-700 transition-all" />
+          <img v-if="imagePreview" :src="imagePreview" alt="Image preview"
+            class="mt-4 w-32 h-32 object-cover rounded-lg shadow-sm" />
         </div>
 
-        <!-- Submit Button -->
-        <button
-          type="submit"
+        <button type="submit"
           class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 font-semibold"
-          :disabled="loading"
-        >
+          :disabled="loading">
           {{ loading ? "Uploading..." : "Upload Product" }}
         </button>
-
-        <!-- Error Message -->
         <p v-if="errorMessage" class="text-red-500 text-sm text-center mt-4">{{ errorMessage }}</p>
       </form>
     </section>
@@ -186,13 +136,11 @@ const submitProduct = async () => {
 </script>
 
 <style scoped>
-/* Custom styles for form inputs */
 input,
 select {
   outline: none;
 }
 
-/* Transition for image preview */
 img {
   transition: opacity 0.3s ease;
 }

@@ -13,7 +13,10 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <UCard v-for="(product, index) in productStore.products" :key="index"
-          class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+          class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+           :style="{ backgroundColor: 'white', color: 'black' }"
+          
+          >
           <div class="relative w-full h-48 sm:h-56 md:h-48 lg:h-56">
             <img :src="product.imageUrl" alt="Product Image" class="w-full h-full object-cover" />
 
