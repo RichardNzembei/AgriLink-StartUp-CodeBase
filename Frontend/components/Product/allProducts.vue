@@ -5,7 +5,7 @@
         v-model="searchQuery"
         type="text"
         placeholder="Search products by name, category,..."
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all bg-slate-50 text-black"
       />
     </div>
     <div class="flex flex-wrap gap-2 mb-6">
