@@ -10,7 +10,11 @@
           <UIcon name="i-heroicons-home-solid" size="24" class="mb-1" />
           <span class="text-sm">Home</span>
         </UButton>
-
+        <UButton variant="ghost" size="sm" to="/Buyer/products" aria-label="Reviews"
+          class="hover:text-green-600 flex flex-col items-center">
+          <UIcon name="i-heroicons-shopping-bag-solid" size="24" class="mb-1" />
+          <span class="text-sm">Products</span>
+        </UButton>
 
         <UButton variant="ghost" size="sm" to="/Buyer/reviews" aria-label="Reviews"
           class="hover:text-green-600 flex flex-col items-center">

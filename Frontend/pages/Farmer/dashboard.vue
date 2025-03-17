@@ -3,8 +3,7 @@
     <div class="bg-white px-4 py-6 mt-20">
         <HomeHeader />
         <HomeConsultation />
-        <ProductAddProducts />
-        <ProductFeaturedProducts />
+      <AppFarmerDisplays/>
     </div>
 </template>
 <script setup>

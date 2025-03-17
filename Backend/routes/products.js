@@ -9,9 +9,9 @@ const upload = multer({ storage: multer.memoryStorage() });
 // ✅ Upload product
 router.post("/products", upload.single("image"), async (req, res) => {
   try {
-    const { ownerPhone, name, price, unit, supplyAmount } = req.body;
+    const { ownerPhone, name, price, unit, category, supplyAmount } = req.body;
 
-    if (!ownerPhone || !name || !price || !unit || !supplyAmount || !req.file) {
+    if (!ownerPhone || !name || !price || !unit || !category || !supplyAmount || !req.file) {
       return res.status(400).json({ error: "Missing product data" });
     }
 
@@ -37,6 +37,7 @@ router.post("/products", upload.single("image"), async (req, res) => {
         name,
         price: parseFloat(price),
         unit,
+        category,
         imageUrl,
         ownerPhone,
         supplyAmount,
