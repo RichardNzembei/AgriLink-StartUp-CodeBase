@@ -1,38 +1,48 @@
 <template>
   <AppBuyerNavbar />
-  <div class="mt-20 mx-auto bg-gray-50 min-h-screen p-6">
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 animate-fade-in">
-      <h2 class="text-3xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 animate-fade-in">
+      <h2 class="text-lg font-bold text-gray-800 dark:text-white mb-6 text-center flex items-center justify-center gap-2">
         <i class="fas fa-star text-yellow-400"></i> Seller Reviews
       </h2>
 
-      <div v-if="sellerStore.loading" class="text-center text-gray-500 animate-pulse">
-        <i class="fas fa-spinner fa-spin"></i> Loading sellers...
+      <!-- Loading State -->
+      <div v-if="sellerStore.loading" class="text-center text-gray-500 dark:text-gray-400 animate-pulse">
+        <i class="fas fa-spinner fa-spin text-xl"></i> Loading sellers...
       </div>
-      <div v-if="sellerStore.error" class="text-red-500 text-center">{{ sellerStore.error }}</div>
 
+      <!-- Error Message -->
+      <div v-if="sellerStore.error" class="text-red-500 text-center font-medium bg-red-100 dark:bg-red-900 p-3 rounded-lg">
+        {{ sellerStore.error }}
+      </div>
+
+      <!-- Sellers List -->
       <div v-for="seller in sellerStore.sellers" :key="seller.sellerPhone"
-        class="bg-white shadow-md p-4 rounded-lg mb-4 transition-transform hover:scale-105">
-        <h3 class="text-xl text-black font-semibold flex items-center gap-2">
+        class="bg-gray-50 dark:bg-gray-700 shadow-md p-5 rounded-lg mb-5 transition-transform hover:scale-[1.03]">
+
+        <h3 class="text-lg text-gray-900 dark:text-white font-semibold flex items-center gap-2">
           <i class="fas fa-user-circle text-blue-500"></i> Seller: {{ seller.sellerPhone }}
         </h3>
 
+        <!-- Reviews Section -->
         <div v-if="seller.reviews?.length">
-          <ul class="mt-2 space-y-3">
+          <ul class="mt-4 space-y-3">
             <li v-for="review in seller.reviews" :key="review.userPhone"
-              class="border p-4 rounded-lg bg-gray-100 shadow-sm flex flex-col gap-2">
-              <p class="text-gray-700 font-medium flex items-center gap-2">
+              class="border border-gray-300 dark:border-gray-600 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm flex flex-col gap-3 transition-all hover:shadow-lg">
+
+              <p class="text-gray-700 dark:text-gray-200 font-medium flex items-center gap-2">
                 <i class="fas fa-user text-green-500"></i> {{ review.userPhone }}
               </p>
-              <p class="text-gray-600 italic">"{{ review.comment }}"</p>
-              <p class="text-xs text-gray-500 flex items-center gap-1">
+              <p class="text-gray-600 dark:text-gray-300 italic">"{{ review.comment }}"</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                 <i class="fas fa-clock"></i> {{ formatDate(review.createdAt) }}
               </p>
             </li>
           </ul>
         </div>
 
-        <p v-else class="text-gray-500 flex items-center gap-1">
+        <!-- No Reviews Message -->
+        <p v-else class="text-gray-500 dark:text-gray-400 flex items-center gap-2 mt-3">
           <i class="fas fa-info-circle"></i> No reviews yet.
         </p>
       </div>
@@ -86,4 +96,15 @@ const formatDate = (timestamp) => {
     transform: translateY(0);
   }
 }
+
+/* Responsive & Dark Mode Enhancements */
+.container {
+  max-width: 100%;
+}
+
+.dark-mode {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+
 </style>
