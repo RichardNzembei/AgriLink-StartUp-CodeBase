@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-20 mx-auto bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen p-6">
+  <div class=" mx-auto bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen p-6">
     <NuxtLink to="/Farmer/dashboard" class="inline-block mb-4 sm:mb-6">
       <div class="flex items-center text-green-700 hover:text-green-800 transition-colors duration-300">
         <UIcon name="i-heroicons-arrow-left-solid" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 animate-float" />

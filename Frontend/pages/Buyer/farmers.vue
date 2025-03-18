@@ -6,8 +6,15 @@
         <span class="text-sm sm:text-base font-semibold">Back to Dashboard</span>
       </div>
     </NuxtLink>
+
+    <!-- Loading state for farmers -->
+    <div v-if="loadingFarmers" class="flex justify-center items-center p-8">
+      <UIcon name="i-heroicons-arrow-path-solid" class="w-8 h-8 text-green-600 animate-spin" />
+      <span class="ml-2 text-gray-600">Loading farmers...</span>
+    </div>
+
     <transition name="fade">
-      <div v-if="Farmers.length">
+      <div v-if="!loadingFarmers && Farmers.length">
         <h1 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">Active Farmers</h1>
         <div v-for="farmer in Farmers" :key="farmer.id" class="mb-6 sm:mb-8">
           <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -25,7 +32,14 @@
                 </button>
               </div>
             </div>
-            <div v-if="getFarmerProducts(farmer.phone).length">
+
+            <!-- Loading state for products -->
+            <div v-if="loadingProducts" class="flex justify-center items-center p-4">
+              <UIcon name="i-heroicons-arrow-path-solid" class="w-6 h-6 text-green-600 animate-spin" />
+              <span class="ml-2 text-gray-600">Loading products...</span>
+            </div>
+
+            <div v-else-if="getFarmerProducts(farmer.phone).length">
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div
                   v-for="product in getFarmerProducts(farmer.phone)"
@@ -56,8 +70,10 @@
           </div>
         </div>
       </div>
-      <p v-else class="text-gray-500 text-center">No active farmers found.</p>
+      <p v-else-if="!loadingFarmers" class="text-gray-500 text-center">No active farmers found.</p>
     </transition>
+
+    <!-- Modal -->
     <div
       v-if="isModalOpen"
       class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
@@ -101,18 +117,27 @@ const productStore = useProductStore();
 const userStore = useUserStore();
 const isModalOpen = ref(false);
 const selectedPhone = ref("");
+const loadingFarmers = ref(true); // Loading state for farmers
+const loadingProducts = ref(true); // Loading state for products
+
 onMounted(async () => {
-  await userStore.fetchUsers();
   try {
+    await userStore.fetchUsers();
     products.value = await productStore.getAllProducts();
   } catch (error) {
-    console.error("❌ Failed to fetch products:", error);
+    console.error("❌ Failed to fetch data:", error);
+  } finally {
+    loadingFarmers.value = false;
+    loadingProducts.value = false;
   }
 });
+
 const Farmers = computed(() => userStore.users.filter((user) => user.role === "farmer"));
+
 const getFarmerProducts = (phone) => {
   return products.value.filter((product) => product.ownerPhone === phone);
 };
+
 const toTitleCase = (str) => {
   return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 };
@@ -126,6 +151,7 @@ const formatWhatsApp = (phone) => {
   }
   return cleaned;
 };
+
 const openModal = (phone) => {
   selectedPhone.value = phone;
   isModalOpen.value = true;
@@ -134,9 +160,11 @@ const openModal = (phone) => {
 const closeModal = () => {
   isModalOpen.value = false;
 };
+
 const callFarmer = (phone) => {
   window.location.href = `tel:${phone}`;
 };
+
 const whatsappFarmer = (phone) => {
   const formattedPhone = formatWhatsApp(phone);
   window.open(`https://wa.me/${formattedPhone}`, "_blank");
@@ -153,6 +181,7 @@ const whatsappFarmer = (phone) => {
 .fade-leave-to {
   opacity: 0;
 }
+
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity 0.3s ease, transform 0.3s ease;
