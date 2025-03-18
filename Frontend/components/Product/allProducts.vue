@@ -52,7 +52,7 @@
             <button @click="openModal(product)"
               class="w-full flex items-center justify-center bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors duration-300">
               <UIcon name="i-heroicons-eye" class="w-5 h-5 mr-2" />
-              <span>View Details</span>
+              <span>View</span>
             </button>
           </div>
         </div>
