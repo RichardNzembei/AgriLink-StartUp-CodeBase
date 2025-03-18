@@ -24,7 +24,7 @@
 
       <!-- Product Reviews Section -->
       <div v-if="activeTab === 'products'">
-        <h2 class="text-lg sm:text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+        <h2 class="text-lg sm:text-xl text-black font-bold mb-6 text-center flex items-center justify-center gap-2">
           <i class="fas fa-star text-yellow-400"></i> My Product Reviews
         </h2>
 
@@ -62,7 +62,7 @@
 
       <!-- Seller Reviews Section -->
       <div v-if="activeTab === 'sellers'">
-        <h2 class="text-lg sm:text-xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+        <h2 class="text-lg sm:text-xl text-black font-bold mb-6 text-center flex items-center justify-center gap-2">
           <i class="fas fa-star text-yellow-400"></i> My Overal Reviews
         </h2>
 
