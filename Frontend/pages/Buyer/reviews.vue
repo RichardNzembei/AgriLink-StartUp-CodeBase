@@ -18,7 +18,7 @@
 
       <!-- Sellers List -->
       <div v-for="seller in sellerStore.sellers" :key="seller.sellerPhone"
-        class="bg-gray-50 dark:bg-gray-400 shadow-md p-5 rounded-lg mb-5 transition-transform hover:scale-[1.03]">
+        class="bg-gray-50 shadow-md p-5 rounded-lg mb-5 transition-transform hover:scale-[1.03]">
 
         <h3 class="text-lg text-gray-900  font-semibold flex items-center gap-2">
           <i class="fas fa-user-circle text-blue-500"></i> Seller: {{ seller.sellerPhone }}
@@ -30,7 +30,7 @@
             <li v-for="review in seller.reviews" :key="review.userPhone"
               class="border border-gray-300 dark:border-gray-600 p-4 rounded-lg bg-white shadow-sm flex flex-col gap-3 transition-all hover:shadow-lg">
 
-              <p class="text-gray-700 dark:text-gray-200 font-medium flex items-center gap-2">
+              <p class="text-gray-500  font-medium flex items-center gap-2">
                 <i class="fas fa-user text-green-500"></i> {{ review.userPhone }}
               </p>
               <p class="text-gray-600  italic">"{{ review.comment }}"</p>
