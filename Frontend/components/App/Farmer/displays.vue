@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-8 justify-center items-center">
+  <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-8 place-items-center">
     <NuxtLink to="/Farmer/addProducts">
       <div class="w-36 h-36 sm:w-56 sm:h-56 bg-green-500 text-white border-4 border-green-700 rounded-2xl shadow-lg 
           flex flex-col justify-center items-center cursor-pointer hover:bg-green-600 
