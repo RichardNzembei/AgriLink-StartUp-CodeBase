@@ -62,6 +62,7 @@ router.post("/products", upload.single("image"), async (req, res) => {
 // ✅ Fetch products by phone number
 router.get("/products", async (req, res) => {
   try {
+    console.log("Request body:", req.body);
     const { ownerPhone } = req.query;
 
     if (!ownerPhone) {

@@ -52,7 +52,7 @@ export const useProductStore = defineStore("product", {
         formData.append("name", product.name);
         formData.append("price", product.price);
         formData.append("unit", product.unit);
-        formData.append("unit", product.category);
+        formData.append("category", product.category);
         formData.append("supplyAmount", product.supplyAmount);
         formData.append("image", imageFile);
         formData.append("ownerPhone", userPhone);
