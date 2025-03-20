@@ -27,8 +27,22 @@
           </span>
         </div>
 
-        <UButton type="submit" class="w-full py-2 px-4 bg-green-600 text-white hover:bg-green-700">Register
-        </UButton>
+        <!-- Submit Button with Loading Spinner -->
+        <div class="text-center">
+          <UButton type="submit"
+            class="flex justify-center w-full py-2 px-4 rounded-lg bg-green-600 text-white hover:bg-green-700"
+            :disabled="isLoading">
+            <span v-if="isLoading" class="flex items-center">
+              <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 11-8 8z"></path>
+              </svg>
+              Registering...
+            </span>
+            <span v-else>Register</span>
+          </UButton>
+        </div>
       </form>
 
       <p class="text-sm text-black text-center mt-4">Already have an account? <router-link to="/login"
@@ -69,12 +83,17 @@ onMounted(() => {
   userStore = useUserStore();
 });
 
+const isLoading = ref(false); // Loading state
+
 const registerUser = async () => {
   try {
     if (!userStore) {
       alert("Store is not initialized. Try again.");
       return;
     }
+
+    isLoading.value = true; // Start loading
+
     await userStore.register(
       formData.role,
       formData.phone,
@@ -83,16 +102,16 @@ const registerUser = async () => {
       formData.email,
       formData.password
     );
+
     alert("Registration successful! Redirecting to login...");
     router.push('/login');
   } catch (error) {
     alert(error.message);
+  } finally {
+    isLoading.value = false; // Stop loading
   }
 };
-
 </script>
-
-
 
 <style scoped>
 body {
