@@ -21,7 +21,7 @@
     <div v-else>
       <div v-if="filteredProducts.length === 0" class="text-center text-gray-500">
         <UIcon name="i-heroicons-exclamation-circle" class="w-8 h-8 mx-auto text-gray-400" />
-        <p class="mt-2">No products found.</p>
+        <p class="mt-2">No products found in this caregory.</p>
       </div>
 
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
