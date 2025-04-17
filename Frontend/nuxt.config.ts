@@ -5,6 +5,14 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   modules: ["@nuxt/ui", "@pinia/nuxt"],
+  plugins: ['~/plugins/auth.client.js'],
+  app: {
+    middleware: [
+      { path: '/', middleware: 'auth' },
+      { path: '/login', middleware: 'auth' },
+      { path: '/register', middleware: 'auth' },
+    ],
+  },
 
   vite: {
     plugins: [

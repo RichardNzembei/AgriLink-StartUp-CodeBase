@@ -62,15 +62,21 @@ const loginUser = async () => {
   loading.value = true;
   try {
     const success = await userStore.login(formData.value.phone, formData.value.password);
-    if (success) {
+    console.log('login.vue: Login success:', success, 'isAuthenticated:', userStore.isAuthenticated);
+    console.log('login.vue: localStorage:', {
+      currentUser: localStorage.getItem('currentUser'),
+      userPhone: localStorage.getItem('currentUserPhone'),
+    });
+    if (success && userStore.isAuthenticated) {
       const role = userStore.getUserRole;
+      console.log('login.vue: Redirecting to:', `/${role.toLowerCase()}/dashboard`);
       router.push(`/${role.toLowerCase()}/dashboard`);
     } else {
-      alert("Invalid credentials. Please try again.");
+      alert('Invalid credentials. Please try again.');
     }
   } catch (error) {
-    alert("An error occurred. Please try again later.");
-    console.error(error);
+    alert('An error occurred. Please try again later.');
+    console.error('login.vue: Login error:', error);
   } finally {
     loading.value = false;
   }

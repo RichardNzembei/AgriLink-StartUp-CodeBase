@@ -60,6 +60,23 @@
     </div>
 </template>
 
+
+<script setup>
+import { useUserStore } from '~/store/userStore';
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+
+const userStore = useUserStore();
+const router = useRouter();
+
+onMounted(() => {
+  if (process.client && userStore.isAuthenticated) {
+    const role = userStore.getUserRole;
+    console.log('index.vue: Redirecting to:', `/${role.toLowerCase()}/dashboard`);
+    router.push(`/${role.toLowerCase()}/dashboard`);
+  }
+});
+</script>
 <style scoped>
 body {
     background-color: #fafafa;
