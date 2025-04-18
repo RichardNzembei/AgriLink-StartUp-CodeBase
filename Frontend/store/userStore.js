@@ -1,21 +1,22 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
 const apiBaseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://agrilink-startup-codebase.onrender.com"
-    : "http://localhost:5000";
+  process.env.NODE_ENV === 'production'
+    ? 'https://agrilink-startup-codebase.onrender.com'
+    : 'http://localhost:5000';
 
-export const useUserStore = defineStore("user", {
+export const useUserStore = defineStore('user', {
   state: () => {
     let user = null;
     let users = {};
     let userPhone = null;
-
-    if (typeof window !== "undefined") {
+    
+  
+    if (typeof window !== 'undefined') {
       console.log('userStore: Initializing state from localStorage');
-      const storedUser = localStorage.getItem("currentUser");
+      const storedUser = localStorage.getItem('currentUser');
       console.log('userStore: currentUser raw:', storedUser);
-
+  
       if (storedUser) {
         try {
           const parsedUser = JSON.parse(storedUser);
@@ -25,28 +26,28 @@ export const useUserStore = defineStore("user", {
             console.log('userStore: Parsed user:', user);
           } else {
             console.warn('userStore: Invalid user data in localStorage, clearing');
-            localStorage.removeItem("currentUser");
+            localStorage.removeItem('currentUser');
           }
         } catch (error) {
-          console.error("userStore: Error parsing currentUser from localStorage:", error);
-          localStorage.removeItem("currentUser");
+          console.error('userStore: Error parsing currentUser from localStorage:', error);
+          localStorage.removeItem('currentUser');
         }
       }
-
-      const storedUsers = localStorage.getItem("users");
+  
+      const storedUsers = localStorage.getItem('users');
       if (storedUsers) {
         try {
           users = JSON.parse(storedUsers);
         } catch (error) {
-          console.error("userStore: Error parsing users from localStorage:", error);
-          localStorage.removeItem("users");
+          console.error('userStore: Error parsing users from localStorage:', error);
+          localStorage.removeItem('users');
         }
       }
-
-      userPhone = localStorage.getItem("currentUserPhone") || null;
+  
+      userPhone = localStorage.getItem('currentUserPhone') || null;
       console.log('userStore: userPhone:', userPhone);
     }
-
+  
     return {
       user,
       users,
@@ -57,53 +58,38 @@ export const useUserStore = defineStore("user", {
 
   getters: {
     isAuthenticated: (state) => !!state.user,
-    getUserRole: (state) => {
-      if (!state.user) {
-        console.warn('getUserRole: User is null, defaulting to "farmer"');
-      }
-      return state.user?.role || "farmer";
-    },
+    getUserRole: (state) => state.user?.role || 'farmer',
   },
 
   actions: {
-    initialize() {
-      if (typeof window !== "undefined" && !this.user) {
-        console.log('userStore: Manual initialization');
-        const storedUser = localStorage.getItem("currentUser");
-        if (storedUser) {
-          try {
-            const parsedUser = JSON.parse(storedUser);
-            if (parsedUser && typeof parsedUser === 'object' && parsedUser.role) {
-              delete parsedUser.password;
-              this.user = parsedUser;
-              this.userPhone = localStorage.getItem("currentUserPhone") || null;
-              console.log('userStore: Initialized user:', this.user);
-            } else {
-              console.warn('userStore: Invalid user data during initialization, clearing');
-              localStorage.removeItem("currentUser");
-              localStorage.removeItem("currentUserPhone");
-            }
-          } catch (error) {
-            console.error("userStore: Error initializing user from localStorage:", error);
-            localStorage.removeItem("currentUser");
-            localStorage.removeItem("currentUserPhone");
-          }
-        }
+    setUser(user) {
+      this.user = user;
+  
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('currentUser', JSON.stringify(user));
       }
     },
-
+  
+    setUserPhone(phone) {
+      this.userPhone = phone;
+  
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('currentUserPhone', phone);
+      }
+    },
+    // Removed initialize action, as state initialization handles it
     async fetchUsers() {
       try {
         const response = await fetch(`${apiBaseUrl}/api/user`);
-        if (!response.ok) throw new Error("Failed to fetch users");
+        if (!response.ok) throw new Error('Failed to fetch users');
 
         const users = await response.json();
-        console.log("Fetched users:", users);
+        console.log('Fetched users:', users);
 
         this.usersList = users;
-        console.log("Updated usersList state:", this.usersList);
+        console.log('Updated usersList state:', this.usersList);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error('Error fetching users:', error);
       }
     },
 
@@ -118,33 +104,33 @@ export const useUserStore = defineStore("user", {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || "Failed to fetch user data");
+          throw new Error(errorData.message || 'Failed to fetch user data');
         }
 
         const data = await response.json();
-        console.log("fetchUserData: Fetched user data:", data);
+        console.log('fetchUserData: Fetched user data:', data);
 
-        if (typeof window !== "undefined") {
+        if (typeof window !== 'undefined') {
           this.users[phone] = data;
           this.user = data;
           this.userPhone = phone;
 
-          localStorage.setItem("users", JSON.stringify(this.users));
-          localStorage.setItem("currentUser", JSON.stringify(data));
-          localStorage.setItem("currentUserPhone", phone);
+          localStorage.setItem('users', JSON.stringify(this.users));
+          localStorage.setItem('currentUser', JSON.stringify(data));
+          localStorage.setItem('currentUserPhone', phone);
         }
 
         return data;
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       }
     },
 
     async register(role, phone, first_name, last_name, email, password) {
       try {
         const response = await fetch(`${apiBaseUrl}/api/register`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             role,
             phone,
@@ -162,7 +148,7 @@ export const useUserStore = defineStore("user", {
 
         return await response.json();
       } catch (error) {
-        console.error("Registration failed:", error);
+        console.error('Registration failed:', error);
         throw error;
       }
     },
@@ -170,8 +156,8 @@ export const useUserStore = defineStore("user", {
     async login(phone, password) {
       try {
         const response = await fetch(`${apiBaseUrl}/api/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ phone, password }),
         });
 
@@ -181,7 +167,7 @@ export const useUserStore = defineStore("user", {
         }
 
         const data = await response.json();
-        console.log("login: API response:", data);
+        console.log('login: API response:', data);
 
         const user = {
           role: data.user?.role || data.role,
@@ -192,26 +178,26 @@ export const useUserStore = defineStore("user", {
         };
 
         if (!user.role) {
-          throw new Error("Invalid user data: missing role");
+          throw new Error('Invalid user data: missing role');
         }
 
-        if (typeof window !== "undefined") {
+        if (typeof window !== 'undefined') {
           this.users[phone] = user;
           this.user = user;
           this.userPhone = phone;
 
-          localStorage.setItem("users", JSON.stringify(this.users));
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          localStorage.setItem("currentUserPhone", phone);
-          console.log("login: localStorage updated:", {
-            currentUser: localStorage.getItem("currentUser"),
-            userPhone: localStorage.getItem("currentUserPhone"),
+          localStorage.setItem('users', JSON.stringify(this.users));
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('currentUserPhone', phone);
+          console.log('login: localStorage updated:', {
+            currentUser: localStorage.getItem('currentUser'),
+            userPhone: localStorage.getItem('currentUserPhone'),
           });
         }
 
         return true;
       } catch (error) {
-        console.error("Login failed:", error);
+        console.error('Login failed:', error);
         return false;
       }
     },
@@ -221,12 +207,12 @@ export const useUserStore = defineStore("user", {
         this.user = this.users[phone];
         this.userPhone = phone;
 
-        if (typeof window !== "undefined") {
-          localStorage.setItem("currentUser", JSON.stringify(this.user));
-          localStorage.setItem("currentUserPhone", phone);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('currentUser', JSON.stringify(this.user));
+          localStorage.setItem('currentUserPhone', phone);
         }
       } else {
-        console.error("User not found.");
+        console.error('User not found.');
       }
     },
 
@@ -234,9 +220,9 @@ export const useUserStore = defineStore("user", {
       this.user = null;
       this.userPhone = null;
 
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("currentUser");
-        localStorage.removeItem("currentUserPhone");
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUserPhone');
       }
     },
   },

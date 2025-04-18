@@ -1,32 +1,19 @@
+// plugins/auth.plugin.js
+// KEEP this plugin only if you're initializing auth state from localStorage
+// REMOVE any redirect logic or timeouts
+
 import { useUserStore } from '~/store/userStore';
-import { onNuxtReady } from 'nuxt/app';
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   const userStore = useUserStore();
-  const router = nuxtApp.$router;
 
-  onNuxtReady(() => {
-    setTimeout(() => {
-      if (process.client) {
-        // Manually initialize store
-        userStore.initialize();
-        console.log('auth.plugin: isAuthenticated:', userStore.isAuthenticated);
-        console.log('auth.plugin: user:', userStore.user);
-        console.log('auth.plugin: userPhone:', userStore.userPhone);
-        console.log('auth.plugin: role:', userStore.getUserRole);
-        console.log('auth.plugin: localStorage:', {
-          currentUser: localStorage.getItem('currentUser'),
-          userPhone: localStorage.getItem('currentUserPhone'),
-        });
+  if (process.client) {
+    const currentUser = localStorage.getItem('currentUser');
+    const userPhone = localStorage.getItem('currentUserPhone');
 
-        if (userStore.isAuthenticated) {
-          const role = userStore.getUserRole;
-          console.log('auth.plugin: Redirecting to:', `/${role.toLowerCase()}/dashboard`);
-          router.push(`/${role.toLowerCase()}/dashboard`);
-        } else {
-          console.log('auth.plugin: User not authenticated');
-        }
-      }
-    }, 500); // Increased delay
-  });
+    if (currentUser && userPhone) {
+      userStore.setUser(JSON.parse(currentUser));
+      userStore.setUserPhone(userPhone);
+    }
+  }
 });

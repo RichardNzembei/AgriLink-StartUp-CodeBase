@@ -91,7 +91,7 @@ onMounted(async () => {
     await postStore.fetchPosts();
 });
 
-const activeFarmers = computed(() => userStore.users.filter(user => user.role === "farmer"));
+const activeFarmers = computed(() => userStore.usersList.filter((user) => user.role === "farmer"));
 const posts = computed(() => postStore.posts);
 
 const submitPost = async () => {
