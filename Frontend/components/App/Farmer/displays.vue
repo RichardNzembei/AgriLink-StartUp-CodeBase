@@ -1,119 +1,33 @@
 <template>
-  <div class="dashboard-grid">
-    <NuxtLink to="/Farmer/addProducts" class="dashboard-card add-product-card">
-      <div class="card-content">
-        <UIcon name="i-heroicons-plus-circle" class="card-icon" />
-        <h2 class="card-title">Add Product</h2>
-        <p class="card-description">List your farm produce for sale</p>
+  <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 p-4 sm:p-8 place-items-center">
+    <NuxtLink to="/Farmer/addProducts">
+      <div class="w-36 h-36 sm:w-56 sm:h-56 bg-green-500 text-white border-4 border-green-700 rounded-2xl shadow-lg 
+          flex flex-col justify-center items-center cursor-pointer hover:bg-green-600 
+          transform hover:scale-105 transition-all duration-300 ease-in-out animate-fade-in relative">
+
+        <UIcon name="i-heroicons-plus-circle" size="48" class="text-white mb-2 animate-bounce" />
+        <h1 class="mt-2 text-lg sm:text-xl font-semibold text-center">Add Product</h1>
       </div>
-      <div class="card-pattern"></div>
     </NuxtLink>
 
-    <NuxtLink to="/Farmer/featuredProducts" class="dashboard-card view-products-card">
-      <div class="card-content">
-        <UIcon name="i-heroicons-cube" class="card-icon" />
-        <h2 class="card-title">My Products</h2>
-        <p class="card-description">Manage your listed items</p>
+    <NuxtLink to="/Farmer/featuredProducts">
+      <div class="w-36 h-36 sm:w-56 sm:h-56 bg-gradient-to-br from-green-200 to-green-400 text-green-900 border-2 border-green-400 rounded-2xl shadow-xl 
+          flex flex-col justify-center items-center cursor-pointer hover:bg-gradient-to-br hover:from-green-300 hover:to-green-500 
+          transform hover:scale-105 transition-all duration-300 ease-in-out animate-fade-in relative overflow-hidden">
+
+        <div class="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-10"></div>
+        <UIcon name="i-heroicons-cube" size="48" class="text-green-700 mb-2 animate-float" />
+        <span class="text-lg sm:text-xl font-semibold text-center z-10">Products</span>
       </div>
-      <div class="card-pattern"></div>
     </NuxtLink>
 
-    <NuxtLink to="/Farmer/reviews" class="dashboard-card reviews-card">
-      <div class="card-content">
-        <UIcon name="i-heroicons-star-solid" class="card-icon" />
-        <h2 class="card-title">Customer Reviews</h2>
-        <p class="card-description">See buyer feedback</p>
+    <NuxtLink to="/Farmer/reviews">
+      <div class="w-36 h-36 sm:w-56 sm:h-56 bg-yellow-400 text-white border-4 border-yellow-600 rounded-2xl shadow-lg 
+          flex flex-col justify-center items-center cursor-pointer hover:bg-yellow-500 
+          transform hover:scale-105 transition-all duration-300 ease-in-out animate-fade-in">
+        <UIcon name="i-heroicons-star-solid" size="32" class="mb-2 animate-bounce" />
+        <h1 class="mt-2 text-lg sm:text-xl font-semibold text-center">Reviews</h1>
       </div>
     </NuxtLink>
   </div>
 </template>
-
-<style scoped>
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem 0;
-}
-
-.dashboard-card {
-  position: relative;
-  height: 240px;
-  border-radius: 1rem;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.card-content {
-  position: relative;
-  z-index: 10;
-  color: white;
-}
-
-.card-icon {
-  width: 3rem;
-  height: 3rem;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.dashboard-card:hover .card-icon {
-  transform: scale(1.1);
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.card-description {
-  font-size: 0.875rem;
-  opacity: 0.9;
-}
-
-.card-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 10px 10px;
-  opacity: 0.5;
-}
-
-.add-product-card {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border: 2px solid #34d399;
-}
-
-.view-products-card {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  border: 2px solid #60a5fa;
-}
-
-.reviews-card {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  border: 2px solid #fbbf24;
-}
-
-@media (min-width: 1024px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .dashboard-card {
-    height: 280px;
-  }
-}
-</style>
