@@ -1,0 +1,62 @@
+/* Button Colors */
+button,
+.ui-button {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+.ui-button-white {
+  background-color: white !important;
+  color: var(--color-primary) !important;
+}
+
+/* Card Colors */
+.ui-card {
+  background-color: white !important;
+}
+
+/* Input Fields */
+.ui-input,
+.ui-textarea {
+  background-color: white !important;
+  color: #000000 !important; /* True black */
+}
+
+/* Dropdowns */
+.ui-dropdown,
+.ui-dropdown-item {
+  background-color: white !important;
+  color: #333 !important;
+}
+
+/* Modals */
+.ui-modal,
+.ui-modal-content {
+  background-color: white !important;
+}
+
+/* Tabs */
+.ui-tabs,
+.ui-tab {
+  background-color: white !important;
+}
+
+/* Tooltips */
+.ui-tooltip {
+  background-color: #333 !important;
+  color: white !important;
+}
+
+/* Notifications */
+.ui-notification {
+  background-color: white !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Define your color palette */
+:root {
+  --color-primary: #16a34a; /* green-600 */
+  --color-secondary: #2563eb; /* blue-600 */
+  --color-danger: #dc2626; /* red-600 */
+  --color-warning: #d97706; /* amber-600 */
+}
