@@ -1,9 +1,13 @@
 <template>
-  <div class="header-container">
+  <div class="mb-6">
     <div>
-      <h1 class="header-title">Hi {{ farmerName }}! 🌾</h1>
-      <p class="header-subtitle">Explore our tools to boost your farming success!</p>
+      <h1 class="text-lg font-semibold text-black">
+        Hi {{ farmerName }}! 👋
+      </h1>
+      <p class="text-sm text-gray-500">Enjoy our services!</p>
     </div>
+
+
   </div>
 </template>
 
@@ -31,44 +35,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-.header-container {
-  background: linear-gradient(to right, #22c55e20, #16a34a20);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  animation: slideIn 0.5s ease-out;
-}
-
-.header-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1a3c34;
-  margin-bottom: 0.5rem;
-}
-
-.header-subtitle {
-  font-size: 1rem;
-  color: #4b5563;
-  font-weight: 400;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@media (min-width: 768px) {
-  .header-container {
-    padding: 2rem;
-  }
-  .header-title {
-    font-size: 2rem;
-  }
-  .header-subtitle {
-    font-size: 1.125rem;
-  }
-}
-</style>

@@ -132,7 +132,7 @@ onMounted(async () => {
   }
 });
 
-const Farmers = computed(() => userStore.usersList.filter((user) => user.role === "farmer"));
+const Farmers = computed(() => userStore.users.filter((user) => user.role === "farmer"));
 
 const getFarmerProducts = (phone) => {
   return products.value.filter((product) => product.ownerPhone === phone);

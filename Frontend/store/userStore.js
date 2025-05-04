@@ -1,163 +1,101 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
 const apiBaseUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'https://agrilink-startup-codebase.onrender.com'
-    : 'http://localhost:5000';
+  process.env.NODE_ENV === "production"
+    ? "https://agrilink-startup-codebase.onrender.com"
+    : "http://localhost:5000";
 
-export const useUserStore = defineStore('user', {
-  state: () => {
-    let user = null;
-    let users = {};
-    let userPhone = null;
-    
-  
-    if (typeof window !== 'undefined') {
-      console.log('userStore: Initializing state from localStorage');
-      const storedUser = localStorage.getItem('currentUser');
-      console.log('userStore: currentUser raw:', storedUser);
-  
-      if (storedUser) {
-        try {
-          const parsedUser = JSON.parse(storedUser);
-          if (parsedUser && typeof parsedUser === 'object' && parsedUser.role) {
-            delete parsedUser.password; // Sanitize
-            user = parsedUser;
-            console.log('userStore: Parsed user:', user);
-          } else {
-            console.warn('userStore: Invalid user data in localStorage, clearing');
-            localStorage.removeItem('currentUser');
-          }
-        } catch (error) {
-          console.error('userStore: Error parsing currentUser from localStorage:', error);
-          localStorage.removeItem('currentUser');
-        }
-      }
-  
-      const storedUsers = localStorage.getItem('users');
-      if (storedUsers) {
-        try {
-          users = JSON.parse(storedUsers);
-        } catch (error) {
-          console.error('userStore: Error parsing users from localStorage:', error);
-          localStorage.removeItem('users');
-        }
-      }
-  
-      userPhone = localStorage.getItem('currentUserPhone') || null;
-      console.log('userStore: userPhone:', userPhone);
-    }
-  
-    return {
-      user,
-      users,
-      userPhone,
-      usersList: [],
-    };
-  },
+export const useUserStore = defineStore("user", {
+  state: () => ({
+    user:
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("currentUser")) || null
+        : null,
+    users:
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("users")) || {}
+        : {},
+    userPhone:
+      typeof window !== "undefined"
+        ? localStorage.getItem("currentUserPhone") || null
+        : null,
+    users: [],
+  }),
 
   getters: {
     isAuthenticated: (state) => !!state.user,
-    getUserRole: (state) => state.user?.role || 'farmer',
+    getUserRole: (state) => state.user?.role || "farmer",
   },
 
   actions: {
-    setUser(user) {
-      this.user = user;
-  
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-      }
-    },
-  
-    setUserPhone(phone) {
-      this.userPhone = phone;
-  
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('currentUserPhone', phone);
-      }
-    },
-    // Removed initialize action, as state initialization handles it
     async fetchUsers() {
       try {
         const response = await fetch(`${apiBaseUrl}/api/user`);
-        if (!response.ok) throw new Error('Failed to fetch users');
+        if (!response.ok) throw new Error("Failed to fetch users");
 
         const users = await response.json();
-        console.log('Fetched users:', users);
+        console.log("Fetched farmers:", users);
 
-        this.usersList = users;
-        console.log('Updated usersList state:', this.usersList);
+        this.users = users;
+        console.log("Updated users state:", this.users);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       }
     },
 
     async fetchUserData(phone) {
-      if (this.user && this.user.phone === phone) {
-        console.log('userStore: Skipping fetchUserData, user already set:', this.user);
-        return this.user;
-      }
-
       try {
         const response = await fetch(`${apiBaseUrl}/api/user/${phone}`);
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to fetch user data');
+          throw new Error(errorData.message || "Failed to fetch user data");
         }
 
         const data = await response.json();
-        console.log('fetchUserData: Fetched user data:', data);
 
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           this.users[phone] = data;
           this.user = data;
           this.userPhone = phone;
 
-          localStorage.setItem('users', JSON.stringify(this.users));
-          localStorage.setItem('currentUser', JSON.stringify(data));
-          localStorage.setItem('currentUserPhone', phone);
+          localStorage.setItem("users", JSON.stringify(this.users));
+          localStorage.setItem("currentUser", JSON.stringify(data));
+          localStorage.setItem("currentUserPhone", phone);
         }
 
         return data;
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     },
-
     async register(role, phone, first_name, last_name, email, password) {
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            role,
-            phone,
-            first_name,
-            last_name,
-            email,
-            password,
-          }),
-        });
+      const response = await fetch(`${apiBaseUrl}/api/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role,
+          phone,
+          first_name,
+          last_name,
+          email,
+          password,
+        }),
+      });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message);
-        }
-
-        return await response.json();
-      } catch (error) {
-        console.error('Registration failed:', error);
-        throw error;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
       }
+
+      return response.json();
     },
 
     async login(phone, password) {
       try {
         const response = await fetch(`${apiBaseUrl}/api/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ phone, password }),
         });
 
@@ -167,37 +105,20 @@ export const useUserStore = defineStore('user', {
         }
 
         const data = await response.json();
-        console.log('login: API response:', data);
 
-        const user = {
-          role: data.user?.role || data.role,
-          phone: data.user?.phone || data.phone,
-          first_name: data.user?.first_name || data.first_name,
-          last_name: data.user?.last_name || data.last_name,
-          email: data.user?.email || data.email,
-        };
-
-        if (!user.role) {
-          throw new Error('Invalid user data: missing role');
-        }
-
-        if (typeof window !== 'undefined') {
-          this.users[phone] = user;
-          this.user = user;
+        if (typeof window !== "undefined") {
+          this.users[phone] = data.user;
+          this.user = data.user;
           this.userPhone = phone;
 
-          localStorage.setItem('users', JSON.stringify(this.users));
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          localStorage.setItem('currentUserPhone', phone);
-          console.log('login: localStorage updated:', {
-            currentUser: localStorage.getItem('currentUser'),
-            userPhone: localStorage.getItem('currentUserPhone'),
-          });
+          localStorage.setItem("users", JSON.stringify(this.users));
+          localStorage.setItem("currentUser", JSON.stringify(data.user));
+          localStorage.setItem("currentUserPhone", phone);
         }
 
         return true;
       } catch (error) {
-        console.error('Login failed:', error);
+        console.error("Login failed:", error);
         return false;
       }
     },
@@ -207,12 +128,12 @@ export const useUserStore = defineStore('user', {
         this.user = this.users[phone];
         this.userPhone = phone;
 
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('currentUser', JSON.stringify(this.user));
-          localStorage.setItem('currentUserPhone', phone);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("currentUser", JSON.stringify(this.user));
+          localStorage.setItem("currentUserPhone", phone);
         }
       } else {
-        console.error('User not found.');
+        console.error("User not found.");
       }
     },
 
@@ -220,9 +141,9 @@ export const useUserStore = defineStore('user', {
       this.user = null;
       this.userPhone = null;
 
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('currentUserPhone');
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("currentUserPhone");
       }
     },
   },

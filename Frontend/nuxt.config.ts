@@ -5,7 +5,6 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   modules: ["@nuxt/ui", "@pinia/nuxt"],
-  plugins: ["~/plugins/auth.client.js"],
 
   vite: {
     plugins: [
@@ -50,7 +49,7 @@ export default defineNuxtConfig({
         },
         workbox: {
           globPatterns: ["**/*.{js,css,html,png,svg,ico,json}"],
-          navigateFallback: "/", // Use relative path
+          navigateFallback: "https://agri-link-start-up-code-base.vercel.app/",
           navigateFallbackDenylist: [/^\/nuxt\//, /\/api\//],
         },
         includeAssets: [
@@ -65,6 +64,8 @@ export default defineNuxtConfig({
   },
 
   app: {
-    head: {}, // No manual manifest link needed
+    head: {
+      link: [{ rel: "manifest", href: "/manifest.json" }],
+    },
   },
 });
