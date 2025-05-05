@@ -1,11 +1,7 @@
 <template>
-  <div class="p-4 sm:p-6 bg-gray-50 min-h-screen">
-    <NuxtLink to="/Buyer/dashboard" class="inline-block mb-4 sm:mb-6">
-      <div class="flex items-center text-green-700 hover:text-green-800 transition-colors duration-300">
-        <UIcon name="i-heroicons-arrow-left-solid" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 animate-float" />
-        <span class="text-sm sm:text-base font-semibold">Back to Dashboard</span>
-      </div>
-    </NuxtLink>
+    <AppBuyerNavbar />
+
+    <div class="bg-white px-4">
 
     <!-- Loading state for farmers -->
     <div v-if="loadingFarmers" class="flex justify-center items-center p-8">

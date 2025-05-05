@@ -1,11 +1,7 @@
 <template>
-  <div class=" mx-auto bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen p-6">
-    <NuxtLink to="/Farmer/dashboard" class="inline-block mb-4 sm:mb-6">
-      <div class="flex items-center text-green-700 hover:text-green-800 transition-colors duration-300">
-        <UIcon name="i-heroicons-arrow-left-solid" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 animate-float" />
-        <span class="text-sm sm:text-base font-semibold">Back to Dashboard</span>
-      </div>
-    </NuxtLink>
+  <AppFarmerNavbar />
+  <div class=" mx-auto bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+ 
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 animate-fade-in">
       <div class="flex justify-center mb-8">
         <button @click="activeTab = 'products'" :class="[

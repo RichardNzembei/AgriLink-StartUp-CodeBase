@@ -1,6 +1,6 @@
 <template>
     <AppFarmerNavbar />
-    <div class="bg-white px-4 py-6 mt-20">
+    <div class="bg-white px-4">
         <HomeHeader />
         <HomeConsultation />
       <AppFarmerDisplays/>
