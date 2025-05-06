@@ -1,6 +1,10 @@
 <template>
-  <AppFarmerNavbar />
-  <div class=" mx-auto bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  <div class="min-h-screen bg-gray-50 font-poppins">
+    <!-- Navbar -->
+    <AppFarmerNavbar />
+
+    <!-- Main Content -->
+    <div class="py-8 px-4 space-y-8">
  
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 animate-fade-in">
       <div class="flex justify-center mb-8">
@@ -92,6 +96,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
