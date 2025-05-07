@@ -1,11 +1,10 @@
 <template>
-  <div class="p-4 sm:p-6 bg-white min-h-screen">
-    <NuxtLink to="/Farmer/dashboard" class="inline-block mb-4 sm:mb-6">
-      <div class="flex items-center text-green-700 hover:text-green-800 transition-colors duration-300">
-        <UIcon name="i-heroicons-arrow-left-solid" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 animate-float" />
-        <span class="text-sm sm:text-base font-semibold">Back to Dashboard</span>
-      </div>
-    </NuxtLink>
+  <div class="min-h-screen bg-gray-50 font-poppins">
+    <!-- Navbar -->
+    <AppFarmerNavbar />
+
+    <!-- Main Content -->
+    <div class="py-8 px-4 space-y-8">
     <section class="max-w-2xl mx-auto">
       <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Add a Product</h1>
       <form @submit.prevent="submitProduct" class="bg-white p-6 rounded-lg shadow-lg space-y-6">
@@ -73,6 +72,7 @@
         <p v-if="errorMessage" class="text-red-500 text-sm text-center mt-4">{{ errorMessage }}</p>
       </form>
     </section>
+  </div>
   </div>
 </template>
 

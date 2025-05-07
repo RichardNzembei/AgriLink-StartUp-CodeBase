@@ -8,7 +8,9 @@ const route = useRoute();
 const navItems = [
   { to: '/Farmer/dashboard', label: 'Home', icon: 'i-lucide-home', color: 'text-blue-500' },
   { to: '/Farmer/community', label: 'Community', icon: 'i-heroicons-globe-alt-solid', color: 'text-green-500' },
+  { to: '/Farmer/addproducts', label: 'Add', icon: 'i-heroicons-plus', color: 'text-orange-500' },
   { to: '/Farmer/reviews', label: 'Reviews', icon: 'i-heroicons-chat-bubble-left-right-solid', color: 'text-orange-500' },
+  { to: '/Farmer/insights', label: 'Insights', icon: 'i-heroicons-light-bulb', color: 'text-orange-500' },
 ];
 
 const isMenuOpen = ref(false);
@@ -71,10 +73,13 @@ onUnmounted(() => {
             v-for="item in navItems"
             :key="item.to"
             :to="item.to"
-            class="relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+            class=" px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
             :class="route.path === item.to ? `${item.color} bg-gray-50` : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'"
           >
-            {{ item.label }}
+       <div class="flex items-center gap-2">
+        <Icon :name="item.icon" class="h-6 w-6 " />
+        <span>{{ item.label }}</span>
+       </div>
           </RouterLink>
         </nav>
 
@@ -152,7 +157,6 @@ onUnmounted(() => {
           :class="route.path === item.to ? item.color : 'text-gray-500'"
         >
           <Icon :name="item.icon" class="h-6 w-6 mb-1" />
-          <span>{{ item.label }}</span>
         </RouterLink>
       </div>
     </div>
