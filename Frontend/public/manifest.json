@@ -2,7 +2,12 @@
     "name": "AgriLink",
     "short_name": "AgriLink",
     "start_url": "/",
-    "theme_color": "#ffffff",
+    "version": "1.0.0",
+    "theme_color": "#000000",
+    "description": "AgriLink is a web application designed to connect farmers with agricultural resources, tools, and community support.",
+    "lang": "en-US",
+    "dir": "ltr",
+    "orientation": "portrait",
     "background_color": "#ffffff",
     "display": "standalone",
     "icons": [

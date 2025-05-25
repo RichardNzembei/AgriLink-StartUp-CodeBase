@@ -2,10 +2,21 @@
   <div class="min-h-screen bg-gray-50 font-poppins">
     <!-- Navbar -->
     <AppFarmerNavbar />
+<<<<<<< HEAD
 
     <!-- Main Content -->
  
     <div class="community-page py-8 px-4 space-y-8 w-full flex flex-col md:flex-row bg-white">
+=======
+<<<<<<< Updated upstream
+    <div class="community-page px-4 py-6 mt-20 w-full flex flex-col md:flex-row bg-white">
+=======
+
+    <!-- Main Content -->
+ 
+    <div class="community-page py-8 px-4 space-y-8 w-full flex flex-col md:flex-row bg-white mt-16">
+>>>>>>> Stashed changes
+>>>>>>> 61e73ef (farmers Dashboard redo)
 
         <div class="w-full md:w-1/4 pr-4 border-r border-gray-200 relative md:block"
             :class="{ 'hidden': !showFarmers, 'block': showFarmers }">
