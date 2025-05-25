@@ -8,10 +8,10 @@
       <!-- Welcome Banner -->
       <section class="bg-beige-50 rounded-xl shadow-sm p-6 bg-agriculture-pattern">
         <h1 class="text-xl sm:text-2xl font-semibold text-gray-800">
-          Welcome, {{ farmerName }}
+          Karibu, {{ farmerName }}
         </h1>
         <p class="text-sm text-gray-600 mt-1">
-          Manage your farm, connect with markets, and grow your community.
+          Simamia shamba lako, ungana na soko, na ukuze jamii yako.
         </p>
       </section>
 
@@ -19,10 +19,10 @@
       <section class="bg-white rounded-xl shadow-sm p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <UIcon name="i-heroicons-cloud" class="h-5 w-5 mr-2 text-green-600" />
-          Weather Update
+          Habari za Hali ya Hewa
         </h2>
         <div v-if="weather" class="flex items-center space-x-4 animate-fade-in">
-          <img :src="weather.icon" alt="Weather Icon" class="w-12 h-12" />
+          <img :src="weather.icon" alt="Ikoni ya Hali ya Hewa" class="w-12 h-12" />
           <div>
             <p class="text-lg font-medium text-gray-800">{{ weather.temperature }}°C</p>
             <p class="text-sm text-gray-600 capitalize">{{ weather.description }}</p>
@@ -32,7 +32,7 @@
         <div v-else-if="weatherError" class="text-sm text-red-600">{{ weatherError }}</div>
         <div v-else class="text-sm text-gray-600 flex items-center">
           <UIcon name="i-heroicons-arrow-path" class="h-4 w-4 mr-2 animate-spin" />
-          Loading weather...
+          Inapakia hali ya hewa...
         </div>
       </section>
 
@@ -40,7 +40,7 @@
       <section class="bg-white rounded-xl shadow-sm p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <UIcon name="i-heroicons-currency-dollar" class="h-5 w-5 mr-2 text-green-600" />
-          Market Prices
+          Bei Sokoni
         </h2>
         <div v-if="marketPrices.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div
@@ -61,34 +61,34 @@
         </div>
         <div v-else class="text-sm text-gray-600 flex items-center">
           <UIcon name="i-heroicons-arrow-path" class="h-4 w-4 mr-2 animate-spin" />
-          Loading market prices...
+          Inapakia bei za soko...
         </div>
       </section>
 
       <!-- Consultation -->
       <section class="bg-green-50 rounded-xl shadow-sm p-6">
         <div class="flex items-center space-x-4 mb-4">
-          <img src="/myproducts/consult.png" alt="Free Consultation" class="w-12 h-12 rounded-full border-2 border-green-200" />
+          <img src="/myproducts/consult.png" alt="Mashauri ya Bure" class="w-12 h-12 rounded-full border-2 border-green-200" />
           <div>
-            <h2 class="text-lg font-semibold text-gray-800">Free Consultation</h2>
-            <p class="text-sm text-gray-600">Connect with experts for personalized farming advice</p>
+            <h2 class="text-lg font-semibold text-gray-800">Mashauri ya Bure</h2>
+            <p class="text-sm text-gray-600">Ungana na wataalamu kwa ushauri wa kilimo</p>
           </div>
         </div>
         <div class="flex flex-wrap gap-4">
           <UButton
             variant="solid"
             size="md"
-            aria-label="Call Support"
+            aria-label="Piga Simu kwa Usaidizi"
             class="bg-green-600 text-white hover:bg-green-700 p-3 rounded-lg transition-transform duration-200 hover:scale-105"
             @click="callSupport"
           >
             <UIcon name="i-heroicons-phone-solid" class="h-5 w-5 mr-2" />
-            Call Support
+            Piga Simu
           </UButton>
           <UButton
             variant="solid"
             size="md"
-            aria-label="Chat on WhatsApp"
+            aria-label="Ongea kwa WhatsApp"
             class="bg-green-600 text-white hover:bg-green-700 p-3 rounded-lg transition-transform duration-200 hover:scale-105"
             @click="chatOnWhatsApp"
           >
@@ -102,7 +102,7 @@
       <section class="bg-white rounded-xl shadow-sm p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <UIcon name="i-heroicons-users" class="h-5 w-5 mr-2 text-green-600" />
-          Community Feed
+          Jamii ya Wakulima
         </h2>
         <div v-if="communityPosts.length" class="space-y-4">
           <div
@@ -115,7 +115,7 @@
             @keypress.enter="navigateTo(`/community/${post.id}`)"
           >
             <div class="flex items-center space-x-3">
-              <img :src="post.authorAvatar" alt="Author Avatar" class="w-10 h-10 rounded-full border-2 border-green-200" />
+              <img :src="post.authorAvatar" alt="Picha ya Mwandishi" class="w-10 h-10 rounded-full border-2 border-green-200" />
               <div>
                 <p class="text-sm font-semibold text-gray-800">{{ post.author }}</p>
                 <p class="text-xs text-gray-600">{{ post.time }}</p>
@@ -124,7 +124,7 @@
             <p class="mt-2 text-sm text-gray-600">{{ post.content }}</p>
           </div>
         </div>
-        <div v-else class="text-sm text-gray-600">No community posts yet.</div>
+        <div v-else class="text-sm text-gray-600">Hakuna machapisho ya jamii bado.</div>
       </section>
     </div>
   </div>
@@ -142,7 +142,7 @@ const router = useRouter();
 const farmerName = computed(() => {
   return userStore.user?.first_name
     ? userStore.user.first_name.charAt(0).toUpperCase() + userStore.user.first_name.slice(1)
-    : 'Guest';
+    : 'Mgeni';
 });
 
 // On mount: fetch user data, weather, and market prices
@@ -188,13 +188,13 @@ const fetchWeather = async () => {
     setTimeout(() => {
       weather.value = {
         temperature: 24,
-        description: 'Partly Cloudy',
+        description: 'Wingu Kidogo',
         location: 'Nairobi, KE',
         icon: 'https://openweathermap.org/img/wn/02d.png',
       };
     }, 1000);
   } catch (error) {
-    weatherError.value = 'Failed to load weather data.';
+    weatherError.value = 'Imeshindwa kupakia data ya hali ya hewa.';
     console.error('Weather fetch error:', error);
   }
 };
@@ -206,10 +206,10 @@ const fetchMarketPrices = async () => {
   try {
     setTimeout(() => {
       marketPrices.value = [
-        { id: 1, crop: 'Maize', location: 'Nairobi', price: 50 },
-        { id: 2, crop: 'Tomatoes', location: 'Kisumu', price: 80 },
-        { id: 3, crop: 'Potatoes', location: 'Eldoret', price: 40 },
-        { id: 4, crop: 'Onions', location: 'Mombasa', price: 60 },
+        { id: 1, crop: 'Mahindi', location: 'Nairobi', price: 50 },
+        { id: 2, crop: 'Nyanya', location: 'Kisumu', price: 80 },
+        { id: 3, crop: 'Viazi', location: 'Eldoret', price: 40 },
+        { id: 4, crop: 'Vitunguu', location: 'Mombasa', price: 60 },
       ];
     }, 1000);
   } catch (error) {
@@ -223,15 +223,15 @@ const communityPosts = ref([
     id: 1,
     author: 'John Farmer',
     authorAvatar: '/avatars/john.jpg',
-    time: '2 hours ago',
-    content: 'Just harvested my maize crop! Any tips for storage?',
+    time: 'Saa 2 zilizopita',
+    content: 'Nimevuna mahindi yangu! Je, kuna mawazo ya kuhifadhi?',
   },
   {
     id: 2,
     author: 'Mary Grower',
     authorAvatar: '/avatars/mary.jpg',
-    time: '5 hours ago',
-    content: 'Looking for buyers for my tomatoes in Nairobi.',
+    time: 'Saa 5 zilizopita',
+    content: 'Natafuta wanunuzi wa nyanya zangu Nairobi.',
   },
 ]);
 </script>
@@ -250,7 +250,7 @@ const communityPosts = ref([
 
 /* Agriculture-themed background pattern */
 .bg-agriculture-pattern {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Cpath fill="%23f8f5e9" d="M0 0h40v40H0z"/%3E%3Cpath fill="%2397b498" fill-opacity="0.1" d="M20 20c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/%3E%3C/svg%3E');
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Cpath fill="%23f8f5e9" d="M0 0h40v40H0z"/%3E%3Cpath fill="%2397b498" fill-opacity="0.1" d="M20 20c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2-2-.9-2-2-2z"/%3E%3C/svg%3E');
 }
 
 /* Section styling */
