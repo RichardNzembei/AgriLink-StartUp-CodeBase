@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> 61e73ef (farmers Dashboard redo)
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -23,8 +17,6 @@ const lastScrollPosition = ref(0);
 const isHeaderVisible = ref(true);
 const isNavVisible = ref(true);
 
-<<<<<<< HEAD
-=======
 const adjustMainPadding = () => {
   const header = document.querySelector('header');
   const nav = document.querySelector('nav');
@@ -40,30 +32,17 @@ const adjustMainPadding = () => {
   }
 };
 
->>>>>>> 61e73ef (farmers Dashboard redo)
 const handleScroll = () => {
   if (window.innerWidth < 768) {
     const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     
-<<<<<<< HEAD
-=======
     // Header visibility
->>>>>>> 61e73ef (farmers Dashboard redo)
     if (currentScrollPosition > lastScrollPosition.value && currentScrollPosition > 50) {
       isHeaderVisible.value = false;
     } else {
       isHeaderVisible.value = true;
     }
     
-<<<<<<< HEAD
-    if (currentScrollPosition > lastScrollPosition.value && currentScrollPosition > 50) {
-      isNavVisible.value = true;
-    } else if (currentScrollPosition < lastScrollPosition.value - 10) {
-      isNavVisible.value = false;
-    }
-    
-    lastScrollPosition.value = currentScrollPosition;
-=======
     // Nav visibility
     if (currentScrollPosition > lastScrollPosition.value && currentScrollPosition > 50) {
       isNavVisible.value = false;
@@ -73,34 +52,23 @@ const handleScroll = () => {
     
     lastScrollPosition.value = currentScrollPosition;
     adjustMainPadding();
->>>>>>> 61e73ef (farmers Dashboard redo)
   }
 };
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleScroll);
-<<<<<<< HEAD
-=======
   window.addEventListener('resize', adjustMainPadding);
   adjustMainPadding(); // Initial adjustment
->>>>>>> 61e73ef (farmers Dashboard redo)
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
   window.removeEventListener('resize', handleScroll);
-<<<<<<< HEAD
-});
-</script>
-
-=======
   window.removeEventListener('resize', adjustMainPadding);
 });
 </script>
 
->>>>>>> Stashed changes
->>>>>>> 61e73ef (farmers Dashboard redo)
 <template>
   <!-- Desktop Header -->
   <header class="hidden md:block fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-100">
@@ -119,34 +87,12 @@ onUnmounted(() => {
           </div>
         </div>
 
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-        <!-- Community -->
-        <UButton variant="ghost" size="sm" to="/Farmer/community" aria-label="Community"
-          class="hover:text-green-600 flex flex-col items-center w-14 sm:w-20">
-          <UIcon name="i-heroicons-users-solid" class="text-lg sm:text-2xl mb-1" />
-          <span class="hidden sm:block text-xs sm:text-sm">Community</span>
-        </UButton>
-=======
->>>>>>> 61e73ef (farmers Dashboard redo)
         <!-- Main Navigation -->
         <nav class="flex items-center gap-1">
           <RouterLink
             v-for="item in navItems"
             :key="item.to"
             :to="item.to"
-<<<<<<< HEAD
-            class=" px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
-            :class="route.path === item.to ? `${item.color} bg-gray-50` : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'"
-          >
-       <div class="flex items-center gap-2">
-        <Icon :name="item.icon" class="h-6 w-6 " />
-        <span>{{ item.label }}</span>
-       </div>
-          </RouterLink>
-        </nav>
-=======
             class="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
             :class="route.path === item.to ? `${item.color} bg-gray-50` : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'"
           >
@@ -156,8 +102,6 @@ onUnmounted(() => {
             </div>
           </RouterLink>
         </nav>
->>>>>>> Stashed changes
->>>>>>> 61e73ef (farmers Dashboard redo)
 
         <!-- Profile Dropdown Trigger -->
         <RouterLink 
@@ -237,22 +181,11 @@ onUnmounted(() => {
       </div>
     </div>
   </nav>
-<<<<<<< HEAD
-
-  <!-- Main Content Area -->
-  <main class="pt-16 md:pt-14 pb-16 md:pb-0 px-4">
-    <slot />
-  </main>
-=======
-<<<<<<< Updated upstream
-=======
 
   <!-- Main Content Area -->
   <main class="px-4">
     <slot />
   </main>
->>>>>>> Stashed changes
->>>>>>> 61e73ef (farmers Dashboard redo)
 </template>
 
 <style scoped>
